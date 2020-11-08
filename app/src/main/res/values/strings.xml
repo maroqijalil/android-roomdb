@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="splash_name">Katalog</string>
+    <string name="splash_desc"><![CDATA[Film & Serial TV]]></string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_title_movie">Movie</string>
+    <string name="tab_title_tv">TV Show</string>
+    <string name="logo_splash">logo_splash</string>
+    <string name="detail_poster">detail_poster</string>
+    <string name="rilis">Rilis:</string>
+    <string name="genre">Genre:</string>
+    <string name="tim">Tim:</string>
+    <string name="pemeran">Pemeran:</string>
+    <string name="nilai_pengguna">Nilai pengguna</string>
+    <string name="kilasan_singkat">Kilasan singkat:</string>
+    <string name="main_poster">main_poster</string>
+    <string name="rating_img">rating_img</string>
+    <string name="rating">rating</string>
+</resources>
