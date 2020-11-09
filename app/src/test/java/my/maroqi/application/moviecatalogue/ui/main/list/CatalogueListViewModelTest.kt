@@ -3,22 +3,18 @@
 package my.maroqi.application.moviecatalogue.ui.main.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import my.maroqi.application.moviecatalogue.data.source.local.MovieData
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.source.local.TVData
 import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.utility.ListItemType
+import my.maroqi.application.moviecatalogue.utility.getOrAwaitValue
 import org.junit.Before
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.*
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.TimeoutException
 
 class CatalogueListViewModelTest {
 
@@ -141,28 +137,4 @@ class CatalogueListViewModelTest {
 
         return tvListData
     }
-}
-
-fun <T> LiveData<T>.getOrAwaitValue(
-    time: Long = 2,
-    timeUnit: TimeUnit = TimeUnit.SECONDS
-): T {
-    var data: T? = null
-    val latch = CountDownLatch(1)
-    val observer = object: Observer<T> {
-        override fun onChanged(t: T) {
-            data = t
-            latch.countDown()
-            this@getOrAwaitValue.removeObserver(this)
-        }
-    }
-
-    this.observeForever(observer)
-
-    if (!latch.await(time, timeUnit)) {
-        throw TimeoutException("LiveData value was never set")
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    return data as T
 }

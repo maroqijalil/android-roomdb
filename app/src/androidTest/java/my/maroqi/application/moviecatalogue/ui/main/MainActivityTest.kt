@@ -2,6 +2,7 @@ package my.maroqi.application.moviecatalogue.ui.main
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.swipeLeft
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -14,8 +15,11 @@ import my.maroqi.application.moviecatalogue.data.source.local.MovieData
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.source.local.TVData
 import my.maroqi.application.moviecatalogue.data.model.TVItem
+import my.maroqi.application.moviecatalogue.data.source.local.DataIdlingResource
 import my.maroqi.application.moviecatalogue.utility.ListCaster
 import org.hamcrest.Matchers.allOf
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,6 +33,16 @@ class MainActivityTest {
     @JvmField
     @Rule
     var activityRule = ActivityTestRule(MainActivity::class.java)
+
+    @Before
+    fun setUp() {
+        IdlingRegistry.getInstance().register(DataIdlingResource.dataIdlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(DataIdlingResource.dataIdlingResource)
+    }
 
     @Test
     fun loadMovieList() {

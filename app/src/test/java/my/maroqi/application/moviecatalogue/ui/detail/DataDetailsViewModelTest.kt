@@ -6,8 +6,8 @@ import my.maroqi.application.moviecatalogue.data.source.local.MovieData
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.source.local.TVData
 import my.maroqi.application.moviecatalogue.data.model.TVItem
-import my.maroqi.application.moviecatalogue.ui.main.list.getOrAwaitValue
 import my.maroqi.application.moviecatalogue.utility.ListItemType
+import my.maroqi.application.moviecatalogue.utility.getOrAwaitValue
 import org.junit.Before
 import org.junit.Assert.*
 import org.junit.Rule

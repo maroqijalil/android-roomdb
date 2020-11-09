@@ -126,39 +126,39 @@ class DataDetailsActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun insertMovieDetail() {
-        title.text = movieItem!!.title
-        year.text = "(" + movieItem!!.year.toString() + ")"
+        title.text = movieItem?.title
+        year.text = StringBuilder("(" + movieItem?.year.toString() + ")")
 
         Picasso.get()
-            .load(MovieData.drawables[movieItem!!.poster])
+            .load(MovieData.drawables[movieItem?.poster!!])
             .into(poster)
 
-        releaseDate.text = movieItem!!.releaseDate
-        country.text = movieItem!!.country
-        genre.text = ListCaster.getStringList(movieItem!!.genre)
-        duration.text = movieItem!!.duration
-        desc.text = movieItem!!.desc
-        teams.text = ListCaster.getStringListFromMap(movieItem!!.teams)
-        rating.text = movieItem!!.rating.toString()
-        actors.text = ListCaster.getStringList(movieItem!!.actors)
+        releaseDate.text = movieItem?.releaseDate
+        country.text = movieItem?.country
+        genre.text = ListCaster.getStringList(movieItem?.genre)
+        duration.text = movieItem?.duration
+        desc.text = movieItem?.desc
+        teams.text = ListCaster.getStringListFromMap(movieItem?.teams)
+        rating.text = movieItem?.rating.toString()
+        actors.text = ListCaster.getStringList(movieItem?.actors)
     }
 
     @SuppressLint("SetTextI18n")
     private fun inserTVDetail() {
-        title.text = tvItem!!.title
-        year.text = "(" + tvItem!!.year.toString() + ")"
+        title.text = tvItem?.title
+        year.text = StringBuilder("(" + tvItem?.year.toString() + ")")
 
         Picasso.get()
-            .load(TVData.drawables[tvItem!!.poster])
+            .load(TVData.drawables[tvItem?.poster!!])
             .into(poster)
 
-        releaseDate.text = tvItem!!.releaseDate
-        genre.text = ListCaster.getStringList(tvItem!!.genre)
+        releaseDate.text = tvItem?.releaseDate
+        genre.text = ListCaster.getStringList(tvItem?.genre)
         country.visibility = View.GONE
-        duration.text = tvItem!!.duration
-        desc.text = tvItem!!.desc
-        teams.text = ListCaster.getStringList(tvItem!!.teams)
-        rating.text = tvItem!!.rating.toString()
-        actors.text = ListCaster.getStringList(tvItem!!.actors)
+        duration.text = tvItem?.duration
+        desc.text = tvItem?.desc
+        teams.text = ListCaster.getStringList(tvItem?.teams)
+        rating.text = tvItem?.rating.toString()
+        actors.text = ListCaster.getStringList(tvItem?.actors)
     }
 }

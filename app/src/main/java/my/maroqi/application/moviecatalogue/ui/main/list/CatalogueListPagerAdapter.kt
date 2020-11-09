@@ -25,6 +25,6 @@ class CatalogueListPagerAdapter(private val context: Context, fm: FragmentManage
     }
 
     override fun getCount(): Int {
-        return 2
+        return TAB_TITLES.size
     }
 }

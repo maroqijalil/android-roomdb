@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import my.maroqi.application.moviecatalogue.data.MovieRepository
 import my.maroqi.application.moviecatalogue.data.TVRepository
 import my.maroqi.application.moviecatalogue.utility.ListItemType
+import my.maroqi.application.moviecatalogue.utility.launchIdling
 
 class CatalogueListViewModel(svd: SavedStateHandle) : ViewModel() {
 
@@ -41,7 +42,7 @@ class CatalogueListViewModel(svd: SavedStateHandle) : ViewModel() {
     }
 
     private fun getMovieListData() {
-        vmCoroutineScope.launch {
+        vmCoroutineScope.launchIdling {
             val movieListData = movieRepository.getListData()
 
             dataList.postValue(movieListData)
@@ -51,7 +52,7 @@ class CatalogueListViewModel(svd: SavedStateHandle) : ViewModel() {
     }
 
     private fun getTVListData() {
-        vmCoroutineScope.launch {
+        vmCoroutineScope.launchIdling {
             val tvListData = tvRepository.getListData()
 
             dataList.postValue(tvListData)
