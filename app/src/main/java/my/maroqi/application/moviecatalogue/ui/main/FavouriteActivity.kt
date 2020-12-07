@@ -2,28 +2,25 @@ package my.maroqi.application.moviecatalogue.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import my.maroqi.application.moviecatalogue.ui.detail.DataDetailsActivity
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import my.maroqi.application.moviecatalogue.R
-import my.maroqi.application.moviecatalogue.utility.ListItemType
+import my.maroqi.application.moviecatalogue.ui.detail.DataDetailsActivity
+import my.maroqi.application.moviecatalogue.ui.main.MainActivity.Companion.MAIN_DATA
+import my.maroqi.application.moviecatalogue.ui.main.MainActivity.Companion.MAIN_DATA_TYPE
 import my.maroqi.application.moviecatalogue.ui.main.list.CatalogueListPagerAdapter
+import my.maroqi.application.moviecatalogue.utility.ListItemType
 import my.maroqi.application.moviecatalogue.utility.NavigationHandler
 
-class MainActivity : AppCompatActivity(), NavigationHandler {
+class FavouriteActivity : AppCompatActivity(), NavigationHandler {
 
-    private lateinit var btnFavOpen: FloatingActionButton
-
-    companion object {
-        const val MAIN_DATA = "data_from_main"
-        const val MAIN_DATA_TYPE = "type_data_from_main"
-    }
+    private lateinit var btnFavClose: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_favourite)
         supportActionBar?.hide()
 
         val sectionsPagerAdapter = CatalogueListPagerAdapter(this, supportFragmentManager)
@@ -32,10 +29,9 @@ class MainActivity : AppCompatActivity(), NavigationHandler {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
 
-        btnFavOpen = findViewById(R.id.btn_fav_open)
-        btnFavOpen.setOnClickListener{
-            val intent = Intent(this@MainActivity, FavouriteActivity::class.java)
-            startActivity(intent)
+        btnFavClose = findViewById(R.id.btn_fav_close)
+        btnFavClose.setOnClickListener{
+            this.finish()
         }
 
         tabs.setupWithViewPager(viewPager)
