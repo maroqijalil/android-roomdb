@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import my.maroqi.application.moviecatalogue.data.MovieRepository
 import my.maroqi.application.moviecatalogue.data.TVRepository
 import my.maroqi.application.moviecatalogue.utility.ListItemType
