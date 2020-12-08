@@ -23,14 +23,18 @@ class FavouriteActivity : AppCompatActivity(), NavigationHandler {
         setContentView(R.layout.activity_favourite)
         supportActionBar?.hide()
 
-        val sectionsPagerAdapter = CatalogueListPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = CatalogueListPagerAdapter(
+            this,
+            supportFragmentManager,
+            CatalogueListPagerAdapter.listPageType["fav"]
+        )
         val viewPager: ViewPager = findViewById(R.id.view_pager)
 
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
 
         btnFavClose = findViewById(R.id.btn_fav_close)
-        btnFavClose.setOnClickListener{
+        btnFavClose.setOnClickListener {
             this.finish()
         }
 

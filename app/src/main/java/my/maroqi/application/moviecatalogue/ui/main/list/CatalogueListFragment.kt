@@ -17,7 +17,7 @@ import my.maroqi.application.moviecatalogue.ui.main.list.adapter.DataListDecorat
 import my.maroqi.application.moviecatalogue.utility.ListItemType
 import my.maroqi.application.moviecatalogue.viewmodel.ViewModelFactory
 
-class CatalogueListFragment : Fragment() {
+class CatalogueListFragment(private val type: Int?) : Fragment() {
 
     private lateinit var vmCatalogueList: CatalogueListViewModel
     private lateinit var mType: ListItemType
@@ -34,8 +34,8 @@ class CatalogueListFragment : Fragment() {
         const val FRAGMENT_TYPE = "fragment_tab_type"
 
         @JvmStatic
-        fun newInstance(pos: Int): CatalogueListFragment {
-            val fr = CatalogueListFragment()
+        fun newInstance(pos: Int, pageType: Int?): CatalogueListFragment {
+            val fr = CatalogueListFragment(pageType)
             val bundle = Bundle()
 
             if (CatalogueListPagerAdapter.TAB_TITLES[pos] == CatalogueListPagerAdapter.TAB_TITLES[0])

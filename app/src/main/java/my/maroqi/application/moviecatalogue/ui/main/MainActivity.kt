@@ -26,14 +26,18 @@ class MainActivity : AppCompatActivity(), NavigationHandler {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
-        val sectionsPagerAdapter = CatalogueListPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = CatalogueListPagerAdapter(
+            this,
+            supportFragmentManager,
+            CatalogueListPagerAdapter.listPageType["home"]
+        )
         val viewPager: ViewPager = findViewById(R.id.view_pager)
 
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
 
         btnFavOpen = findViewById(R.id.btn_fav_open)
-        btnFavOpen.setOnClickListener{
+        btnFavOpen.setOnClickListener {
             val intent = Intent(this@MainActivity, FavouriteActivity::class.java)
             startActivity(intent)
         }
