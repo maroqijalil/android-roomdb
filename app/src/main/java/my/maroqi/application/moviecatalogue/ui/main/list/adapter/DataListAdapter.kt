@@ -9,12 +9,14 @@ import my.maroqi.application.moviecatalogue.R
 import my.maroqi.application.moviecatalogue.utility.ListItemType
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.model.TVItem
+import my.maroqi.application.moviecatalogue.utility.MovieResource
+import my.maroqi.application.moviecatalogue.utility.TVResource
 
 class DataListAdapter(genList: ArrayList<*>?, private val type: ListItemType) :
     RecyclerView.Adapter<DataListViewHolder>() {
 
-    private val movieList: ArrayList<MovieItem> = arrayListOf()
-    private val tvList: ArrayList<TVItem> = arrayListOf()
+    private val movieList: ArrayList<MovieResource> = arrayListOf()
+    private val tvList: ArrayList<TVResource> = arrayListOf()
     private var listSize: Int = 0
 
     init {
@@ -45,10 +47,10 @@ class DataListAdapter(genList: ArrayList<*>?, private val type: ListItemType) :
 
     fun changeDataList(list: ArrayList<*>) {
         if (type == ListItemType.MOVIE) {
-            movieList.addAll(list as ArrayList<MovieItem>)
+            movieList.addAll(list as ArrayList<MovieResource>)
             listSize = movieList.size
         } else if (type == ListItemType.TV_SHOW) {
-            tvList.addAll(list as ArrayList<TVItem>)
+            tvList.addAll(list as ArrayList<TVResource>)
             listSize = tvList.size
         }
 
