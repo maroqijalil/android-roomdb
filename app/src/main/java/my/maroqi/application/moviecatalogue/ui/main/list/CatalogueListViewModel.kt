@@ -1,17 +1,24 @@
 package my.maroqi.application.moviecatalogue.ui.main.list
 
+import android.content.Context
 import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import my.maroqi.application.moviecatalogue.data.FavouriteRepository
 import my.maroqi.application.moviecatalogue.data.MovieRepository
 import my.maroqi.application.moviecatalogue.data.TVRepository
+import my.maroqi.application.moviecatalogue.data.model.MovieItem
+import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.utility.ListItemType
+import my.maroqi.application.moviecatalogue.utility.MovieResource
+import my.maroqi.application.moviecatalogue.utility.TVResource
 import my.maroqi.application.moviecatalogue.utility.launchIdling
 
-class CatalogueListViewModel(svd: SavedStateHandle) : ViewModel() {
+class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() {
 
     val savedState = svd
+    val context = ctx
 
     private val dataList = MutableLiveData<ArrayList<*>>()
     private var _dataList: ArrayList<*>? = null
@@ -22,6 +29,9 @@ class CatalogueListViewModel(svd: SavedStateHandle) : ViewModel() {
     private val movieRepository = MovieRepository()
     private val tvRepository = TVRepository()
 
+    private val dataRepository = FavouriteRepository(context)
+    private lateinit var repositoryObserver: Observer<ArrayList<*>>
+
     companion object {
         const val MOVIE_SVD = "movie_list_svd"
         const val TV_SVD = "tv_list_svd"
@@ -30,10 +40,22 @@ class CatalogueListViewModel(svd: SavedStateHandle) : ViewModel() {
     fun setType(type: ListItemType) {
         this.type = type
 
-        if (this.type == ListItemType.MOVIE)
+        if (this.type == ListItemType.MOVIE) {
+            repositoryObserver = Observer {
+                if (it.size > 0) {
+                    getMovieListData()
+                }
+            }
             getMovieListData()
-        else if (this.type == ListItemType.TV_SHOW)
+        }
+        else if (this.type == ListItemType.TV_SHOW) {
+            repositoryObserver = Observer {
+                if (it.size > 0) {
+                    getTVListData()
+                }
+            }
             getTVListData()
+        }
     }
 
     fun getDataList(): LiveData<ArrayList<*>> {
@@ -43,9 +65,23 @@ class CatalogueListViewModel(svd: SavedStateHandle) : ViewModel() {
     private fun getMovieListData() {
         vmCoroutineScope.launchIdling {
             val movieListData = movieRepository.getListData()
+            val movieListFav = dataRepository.getAllMovie()
+            val resourceList = arrayListOf<MovieResource>()
 
-            dataList.postValue(movieListData)
-            _dataList = movieListData
+            movieListData.forEach { it1 ->
+                var fav = false
+                movieListFav.forEach { it2 ->
+                    if (it1.title.equals(it2.title)) {
+                        resourceList.add(MovieResource.getFavMovie(it1))
+                        fav = true
+                    }
+                }
+                if (!fav)
+                    resourceList.add(MovieResource.getMovie(it1))
+            }
+
+            dataList.postValue(resourceList)
+            _dataList = resourceList
             saveDataList()
         }
     }
@@ -53,9 +89,23 @@ class CatalogueListViewModel(svd: SavedStateHandle) : ViewModel() {
     private fun getTVListData() {
         vmCoroutineScope.launchIdling {
             val tvListData = tvRepository.getListData()
+            val tvListFav = dataRepository.getAllTV()
+            val resourceList = arrayListOf<TVResource>()
 
-            dataList.postValue(tvListData)
-            _dataList = tvListData
+            tvListData.forEach { it1 ->
+                var fav = false
+                tvListFav.forEach { it2 ->
+                    if (it1.title.equals(it2.title)) {
+                        resourceList.add(TVResource.getFavTV(it1))
+                        fav = true
+                    }
+                }
+                if (!fav)
+                    resourceList.add(TVResource.getTV(it1))
+            }
+
+            dataList.postValue(resourceList)
+            _dataList = resourceList
             saveDataList()
         }
     }
@@ -84,5 +134,21 @@ class CatalogueListViewModel(svd: SavedStateHandle) : ViewModel() {
         } else {
             savedState.get<ArrayList<*>>(TV_SVD)
         }
+    }
+
+    fun insertFavMovie(movie: MovieItem) {
+        vmCoroutineScope.launchIdling { dataRepository.insertMovie(movie) }
+    }
+
+    fun deleteFavMovie(movie: MovieItem) {
+        vmCoroutineScope.launchIdling { dataRepository.deleteMovie(movie) }
+    }
+
+    fun insertFavTV(tv: TVItem) {
+        vmCoroutineScope.launchIdling { dataRepository.insertTV(tv) }
+    }
+
+    fun deleteFavTV(tv: TVItem) {
+        vmCoroutineScope.launchIdling { dataRepository.deleteTV(tv) }
     }
 }

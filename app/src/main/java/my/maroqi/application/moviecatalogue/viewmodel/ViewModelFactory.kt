@@ -1,5 +1,6 @@
 package my.maroqi.application.moviecatalogue.viewmodel
 
+import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
@@ -7,8 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import my.maroqi.application.moviecatalogue.ui.detail.DataDetailsViewModel
 import my.maroqi.application.moviecatalogue.ui.main.list.CatalogueListViewModel
+import my.maroqi.application.moviecatalogue.ui.main.list.FavouriteListViewModel
 
 class ViewModelFactory(
+    private val ctx: Context,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -20,10 +23,13 @@ class ViewModelFactory(
     ): T {
         return when {
             modelClass.isAssignableFrom(CatalogueListViewModel::class.java) -> {
-                CatalogueListViewModel(handle) as T
+                CatalogueListViewModel(handle, ctx) as T
             }
             modelClass.isAssignableFrom(DataDetailsViewModel::class.java) -> {
                 DataDetailsViewModel(handle) as T
+            }
+            modelClass.isAssignableFrom(FavouriteListViewModel::class.java) -> {
+                FavouriteListViewModel(handle, ctx) as T
             }
             else -> throw IllegalArgumentException("Unknown View Model Class")
         }

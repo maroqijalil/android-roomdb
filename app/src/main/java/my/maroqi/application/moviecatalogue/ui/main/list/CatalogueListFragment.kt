@@ -20,6 +20,7 @@ import my.maroqi.application.moviecatalogue.viewmodel.ViewModelFactory
 class CatalogueListFragment(private val type: Int?) : Fragment() {
 
     private lateinit var vmCatalogueList: CatalogueListViewModel
+    private lateinit var vmFavouriteList: FavouriteListViewModel
     private lateinit var mType: ListItemType
 
     private lateinit var rvDataList: RecyclerView
@@ -66,17 +67,26 @@ class CatalogueListFragment(private val type: Int?) : Fragment() {
         mType = arguments?.getSerializable(FRAGMENT_TYPE) as ListItemType
         ctx = v.context
 
-        vmCatalogueList = ViewModelProvider(
-            this,
-            ViewModelFactory(this)
-        ).get(CatalogueListViewModel::class.java)
+        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
+            vmCatalogueList = ViewModelProvider(
+                this,
+                ViewModelFactory(ctx, this)
+            ).get(CatalogueListViewModel::class.java)
+
+            vmCatalogueList.setType(mType)
+        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
+            vmFavouriteList = ViewModelProvider(
+                this,
+                ViewModelFactory(ctx, this)
+            ).get(FavouriteListViewModel::class.java)
+
+            vmFavouriteList.setType(mType)
+        }
 
         rvDataList = v.findViewById(R.id.rv_main_list)
     }
 
     private fun setupView() {
-        vmCatalogueList.setType(mType)
-
         initRVADataList()
 
         rvDataList.apply {
@@ -96,16 +106,29 @@ class CatalogueListFragment(private val type: Int?) : Fragment() {
             }
         }
 
-        vmCatalogueList.getDataList().observe(this, observerDataList)
+        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
+            vmCatalogueList.getDataList().observe(this, observerDataList)
+        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
+            vmFavouriteList.getDataList().observe(this, observerDataList)
+        }
     }
 
     private fun initRVADataList() {
-        if (vmCatalogueList.savedState.contains(CatalogueListViewModel.MOVIE_SVD) ||
-            vmCatalogueList.savedState.contains(CatalogueListViewModel.TV_SVD)
-        ) {
-            dataList = vmCatalogueList.loadDataList()
-        } else
-            setupObserver()
+        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
+            if (vmCatalogueList.savedState.contains(CatalogueListViewModel.MOVIE_SVD) ||
+                vmCatalogueList.savedState.contains(CatalogueListViewModel.TV_SVD)
+            ) {
+                dataList = vmCatalogueList.loadDataList()
+            } else
+                setupObserver()
+        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
+            if (vmFavouriteList.savedState.contains(CatalogueListViewModel.MOVIE_SVD) ||
+                vmFavouriteList.savedState.contains(CatalogueListViewModel.TV_SVD)
+            ) {
+                dataList = vmFavouriteList.loadDataList()
+            } else
+                setupObserver()
+        }
 
         rvaDataList = DataListAdapter(dataList, mType)
     }

@@ -8,13 +8,16 @@ import my.maroqi.application.moviecatalogue.data.model.MovieItem
 @Dao
 interface MovieItemDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(movie: MovieItem)
+    suspend fun insert(movie: MovieItem)
 
     @Delete
-    fun delete(movie: MovieItem)
+    suspend fun delete(movie: MovieItem)
 
-    @Query("SELECT * from movie_item")
-    fun getAll(): ArrayList<MovieItem>
+    @Query("SELECT * from movie_item ORDER BY title ASC")
+    suspend fun getAll(): ArrayList<MovieItem>
+
+    @Query("SELECT * from movie_item ORDER BY title ASC")
+    fun getLiveData(): LiveData<ArrayList<MovieItem>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(list: ArrayList<MovieItem>)

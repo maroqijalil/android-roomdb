@@ -62,7 +62,7 @@ class DataDetailsActivity : AppCompatActivity() {
 
         vmDataDetails = ViewModelProvider(
             this,
-            ViewModelFactory(this)
+            ViewModelFactory(this, this)
         ).get(DataDetailsViewModel::class.java)
 
         title = findViewById(R.id.tv_detail_title)

@@ -9,14 +9,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import my.maroqi.application.moviecatalogue.data.FavouriteRepository
-import my.maroqi.application.moviecatalogue.data.MovieRepository
-import my.maroqi.application.moviecatalogue.data.TVRepository
 import my.maroqi.application.moviecatalogue.utility.ListItemType
+import my.maroqi.application.moviecatalogue.utility.MovieResource
+import my.maroqi.application.moviecatalogue.utility.TVResource
 import my.maroqi.application.moviecatalogue.utility.launchIdling
 
 class FavouriteListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() {
 
-    private val savedState = svd
+    val savedState = svd
     private val context = ctx
 
     private val dataList = MutableLiveData<ArrayList<*>>()
@@ -42,16 +42,26 @@ class FavouriteListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
 
     private fun getMovieListData() {
         vmCoroutineScope.launchIdling {
-            dataList.value = dataRepository.getAllMovie()
-            _dataList = dataList.value
+            val movieList = dataRepository.getAllMovie()
+            val resourceList = arrayListOf<MovieResource>()
+
+            movieList.forEach { resourceList.add(MovieResource.getFavMovie(it)) }
+
+            dataList.postValue(resourceList)
+            _dataList = resourceList
             saveDataList()
         }
     }
 
     private fun getTVListData() {
         vmCoroutineScope.launchIdling {
-            dataList.value = dataRepository.getAllTV()
-            _dataList = dataList.value
+            val movieList = dataRepository.getAllTV()
+            val resourceList = arrayListOf<TVResource>()
+
+            movieList.forEach { resourceList.add(TVResource.getFavTV(it)) }
+
+            dataList.postValue(resourceList)
+            _dataList = resourceList
             saveDataList()
         }
     }

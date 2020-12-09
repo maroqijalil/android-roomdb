@@ -1,6 +1,7 @@
 package my.maroqi.application.moviecatalogue.data
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.data.source.local.db.DataRoomDatabase
@@ -18,22 +19,25 @@ class FavouriteRepository (private val context: Context) {
         tvDao = db.tvDao()
     }
 
-    fun getAllMovie(): ArrayList<MovieItem> = movieDao.getAll()
-    fun getAllTV(): ArrayList<TVItem> = tvDao.getAll()
+    suspend fun getAllMovie(): ArrayList<MovieItem> = movieDao.getAll()
+    suspend fun getAllTV(): ArrayList<TVItem> = tvDao.getAll()
 
-    fun insertMovie(movie: MovieItem) {
+    fun getMovieLiveData(): LiveData<ArrayList<MovieItem>> = movieDao.getLiveData()
+    fun getTVLiveData(): LiveData<ArrayList<TVItem>> = tvDao.getLiveData()
+
+    suspend fun insertMovie(movie: MovieItem) {
         movieDao.insert(movie)
     }
 
-    fun deleteMovie(movie: MovieItem) {
+    suspend fun deleteMovie(movie: MovieItem) {
         movieDao.delete(movie)
     }
 
-    fun insertTV(tv: TVItem) {
+    suspend fun insertTV(tv: TVItem) {
         tvDao.insert(tv)
     }
 
-    fun deleteTV(tv: TVItem) {
+    suspend fun deleteTV(tv: TVItem) {
         tvDao.delete(tv)
     }
 }
