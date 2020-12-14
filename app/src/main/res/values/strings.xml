@@ -18,4 +18,10 @@
     <string name="main_poster">main_poster</string>
     <string name="rating_img">rating_img</string>
     <string name="rating">rating</string>
+    <string name="ask_yes">Yes</string>
+    <string name="ask_no">No</string>
+    <string name="del_title2">deleted</string>
+    <string name="in_title">inserted</string>
+    <string name="del_title">Delete!</string>
+    <string name="del_question">Are you sure, want to delete</string>
 </resources>

@@ -89,20 +89,20 @@ object MovieData {
             return array
         }
 
-    val genres: ArrayList<ArrayList<String>>
+    val genres: ArrayList<String>
         get() {
-            val array = arrayListOf<ArrayList<String>>()
+            val array = arrayListOf<String>()
 
-            array.add(arrayListOf("Drama", "Percintaan", "Musik"))
-            array.add(arrayListOf("Aksi", "Cerita fiksi", "Petualangan"))
-            array.add(arrayListOf("Aksi", "Fantasi", "Petualangan"))
-            array.add(arrayListOf("Drama", "Musik"))
-            array.add(arrayListOf("Aksi", "Kejahatan", "Cerita seru"))
-            array.add(arrayListOf("Drama"))
-            array.add(arrayListOf("Drama", "Cerita seru", "Cerita fiksi"))
-            array.add(arrayListOf("Animasi", "Keluarga", "Petualangan"))
-            array.add(arrayListOf("Aksi", "Cerita fiksi", "Petualangan"))
-            array.add(arrayListOf("Aksi", "Cerita seru", "Petualangan"))
+            array.add("Drama, Percintaan, Musik")
+            array.add("Aksi, Cerita fiksi, Petualangan")
+            array.add("Aksi, Fantasi, Petualangan")
+            array.add("Drama, Musik")
+            array.add("Aksi, Kejahatan, Cerita seru")
+            array.add("Drama")
+            array.add("Drama, Cerita seru, Cerita fiksi")
+            array.add("Animasi, Keluarga, Petualangan")
+            array.add("Aksi, Cerita fiksi, Petualangan")
+            array.add("Aksi, Cerita seru, Petualangan")
 
             return array
         }
@@ -181,38 +181,38 @@ object MovieData {
             return array
         }
 
-    val teams: ArrayList<Map<String, String>>
+    val teams: ArrayList<String>
         get() {
-            val array = arrayListOf<Map<String, String>>()
+            val array = arrayListOf<String>()
 
-            array.add(mapOf("Sutradara" to "Bradley Cooper", "Skenario" to "Will Fetters", "Cerita" to "William A. Wellman"))
-            array.add(mapOf("Sutradara" to "Robert Rodriguez", "Skenario" to "-", "Cerita" to "-"))
-            array.add(mapOf("Sutradara" to "James Wan", "Skenario" to "Will Beall", "Cerita" to "Geoff Johns"))
-            array.add(mapOf("Sutradara" to "Bryan Singer", "Skenario" to "Anthony McCarten", "Cerita" to "Peter Morgan"))
-            array.add(mapOf("Sutradara" to "Hans Petter Moland", "Skenario" to "-", "Cerita" to "-"))
-            array.add(mapOf("Sutradara" to "Ryan Coogler", "Skenario" to "-", "Cerita" to "-"))
-            array.add(mapOf("Sutradara" to "M. Night Shyamalan", "Skenario" to "-", "Cerita" to "-"))
-            array.add(mapOf("Sutradara" to "Dean DeBlois", "Skenario" to "-", "Cerita" to "-"))
-            array.add(mapOf("Sutradara" to "Joe Russo", "Skenario" to "-", "Cerita" to "-"))
-            array.add(mapOf("Sutradara" to "Otto Bathurst", "Skenario" to "-", "Cerita" to "Ben Chandler"))
+            array.add("Sutradara: Bradley Cooper, Skenario: Will Fetters, Cerita: William A. Wellman")
+            array.add("Sutradara: Robert Rodriguez")
+            array.add("Sutradara: James Wan, Skenario: Will Beall, Cerita: Geoff Johns")
+            array.add("Sutradara: Bryan Singer, Skenario: Anthony McCarten, Cerita: Peter Morgan")
+            array.add("Sutradara: Hans Petter Moland")
+            array.add("Sutradara: Ryan Coogler")
+            array.add("Sutradara: M. Night Shyamalan")
+            array.add("Sutradara: Dean DeBlois")
+            array.add("Sutradara: Joe Russo")
+            array.add("Sutradara: Otto Bathurst, Cerita: Ben Chandler")
 
             return array
         }
 
-    val actors: ArrayList<ArrayList<String>>
+    val actors: ArrayList<String>
         get() {
-            val array = arrayListOf<ArrayList<String>>()
+            val array = arrayListOf<String>()
 
-            array.add(arrayListOf("Bradley Cooper", "Lady Gaga", "Sam Elliott"))
-            array.add(arrayListOf("Rosa Salazar", "Christoph Waltz", "Jennifer Connelly"))
-            array.add(arrayListOf("Jason Momoa", "Amber Heard", "Willem Dafoe"))
-            array.add(arrayListOf("Rami Malek", "Gwilym Lee", "Ben Hardy"))
-            array.add(arrayListOf("Liam Neeson", "Laura Dern", "Emmy Rossum"))
-            array.add(arrayListOf("Michael B. Jordan", "Sylvester Stallone", "Tessa Thompson"))
-            array.add(arrayListOf("James McAvoy", "Bruce Willis", "Anya Taylor-Joy"))
-            array.add(arrayListOf("Jay Baruchel", "America Ferrera", "Cate Blanchett"))
-            array.add(arrayListOf("Robert Downey Jr.", "Chris Hemsworth", "Chris Evans"))
-            array.add(arrayListOf("Taron Egerton", "Jamie Foxx", "Ben Mendelsohn"))
+            array.add("Bradley Cooper, Lady Gaga, Sam Elliott")
+            array.add("Rosa Salazar, Christoph Waltz, Jennifer Connelly")
+            array.add("Jason Momoa, Amber Heard, Willem Dafoe")
+            array.add("Rami Malek, Gwilym Lee, Ben Hardy")
+            array.add("Liam Neeson, Laura Dern, Emmy Rossum")
+            array.add("Michael B. Jordan, Sylvester Stallone, Tessa Thompson")
+            array.add("James McAvoy, Bruce Willis, Anya Taylor-Joy")
+            array.add("Jay Baruchel, America Ferrera, Cate Blanchett")
+            array.add("Robert Downey Jr., Chris Hemsworth, Chris Evans")
+            array.add("Taron Egerton, Jamie Foxx, Ben Mendelsohn")
 
             return array
         }

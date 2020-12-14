@@ -71,20 +71,20 @@ object TVData {
             return array
         }
 
-    val genres: ArrayList<ArrayList<String>>
+    val genres: ArrayList<String>
         get() {
-            val array = arrayListOf<ArrayList<String>>()
+            val array = arrayListOf<String>()
 
-            array.add(arrayListOf("Kejahatan", "Drama", "Misteri", "Aksi & Petualangan"))
-            array.add(arrayListOf("Komedi", "Sci-fi & Fantasy", "Animasi", "Aksi & Petualangan"))
-            array.add(arrayListOf("Aksi", "Petualangan", "Komedi", "Fantasi", "Animasi"))
-            array.add(arrayListOf("Drama", "Sci-fi & Fantasy"))
-            array.add(arrayListOf("Drama", "Fantasi", "Kejahatan"))
-            array.add(arrayListOf("Aksi & Petualangan", "Drama", "Sci-fi & Fantasy"))
-            array.add(arrayListOf("Animasi", "Komedi", "Drama"))
-            array.add(arrayListOf("Aksi", "Petualangan", "Drama", "Cerita Fiksi"))
-            array.add(arrayListOf("Animasi", "Komedi", "Keluarga", "Drama"))
-            array.add(arrayListOf("Aksi & Petualangan", "Drama", "Sci-fi & Fantasy"))
+            array.add("Kejahatan, Drama, Misteri, Aksi & Petualangan")
+            array.add("Komedi, Sci-fi & Fantasy, Animasi, Aksi & Petualangan")
+            array.add("Aksi, Petualangan, Komedi, Fantasi, Animasi")
+            array.add("Drama, Sci-fi & Fantasy")
+            array.add("Drama, Fantasi, Kejahatan")
+            array.add("Aksi & Petualangan, Drama, Sci-fi & Fantasy")
+            array.add("Animasi, Komedi, Drama")
+            array.add("Aksi, Petualangan, Drama, Cerita Fiksi")
+            array.add("Animasi, Komedi, Keluarga, Drama")
+            array.add("Aksi & Petualangan, Drama, Sci-fi & Fantasy")
 
             return array
         }
@@ -163,38 +163,38 @@ object TVData {
             return array
         }
 
-    val teams: ArrayList<ArrayList<String>>
+    val teams: ArrayList<String>
         get() {
-            val array = arrayListOf<ArrayList<String>>()
+            val array = arrayListOf<String>()
 
-            array.add(arrayListOf("Greg Berlanti", "Marc Guggenheim", "Andrew Kreisberg"))
-            array.add(arrayListOf("Akira Toriyama"))
-            array.add(arrayListOf("Hiro Mashima"))
-            array.add(arrayListOf("Greg Berlanti", "Geoff Johns", "Andrew Kreisberg"))
-            array.add(arrayListOf("Bruno Heller"))
-            array.add(arrayListOf("Scott Buck"))
-            array.add(arrayListOf("Masashi Kishimoto"))
-            array.add(arrayListOf("Greg Berlanti", "Ali Adler", "Andrew Kreisberg"))
-            array.add(arrayListOf("Matt Groening"))
-            array.add(arrayListOf("Frank Darabont"))
+            array.add("Greg Berlanti, Marc Guggenheim, Andrew Kreisberg")
+            array.add("Akira Toriyama")
+            array.add("Hiro Mashima")
+            array.add("Greg Berlanti, Geoff Johns, Andrew Kreisberg")
+            array.add("Bruno Heller")
+            array.add("Scott Buck")
+            array.add("Masashi Kishimoto")
+            array.add("Greg Berlanti, Ali Adler, Andrew Kreisberg")
+            array.add("Matt Groening")
+            array.add("Frank Darabont")
 
             return array
         }
 
-    val actors: ArrayList<ArrayList<String>>
+    val actors: ArrayList<String>
         get() {
-            val array = arrayListOf<ArrayList<String>>()
+            val array = arrayListOf<String>()
 
-            array.add(arrayListOf("Stephen Amell", "David Ramsey", "Katie Cassidy"))
-            array.add(arrayListOf("Masako Nozawa", "Mayumi Tanaka", "Hiromi Tsuru"))
-            array.add(arrayListOf("Makoto Furukawa", "Wataru Hatano", "Aya Hirano"))
-            array.add(arrayListOf("Grant Gustin", "Candice Patton", "Carlos Valdes"))
-            array.add(arrayListOf("Ben McKenzie", "Donal Logue", "David Mazouz"))
-            array.add(arrayListOf("Finn Jones", "Jessica Henwick", "Jessica Stroup"))
-            array.add(arrayListOf("Kazuhiko Inoue", "Jouji Nakata", "Akira Ishida"))
-            array.add(arrayListOf("Melissa Benoist", "Chyler Leigh", "David Harewood"))
-            array.add(arrayListOf("Dan Castellaneta", "Julie Kavner", "Nancy Cartwright"))
-            array.add(arrayListOf("Norman Reedus", "Danai Gurira", "Andrew Lincoln"))
+            array.add("Stephen Amell, David Ramsey, Katie Cassidy")
+            array.add("Masako Nozawa, Mayumi Tanaka, Hiromi Tsuru")
+            array.add("Makoto Furukawa, Wataru Hatano, Aya Hirano")
+            array.add("Grant Gustin, Candice Patton, Carlos Valdes")
+            array.add("Ben McKenzie, Donal Logue, David Mazouz")
+            array.add("Finn Jones, Jessica Henwick, Jessica Stroup")
+            array.add("Kazuhiko Inoue, Jouji Nakata, Akira Ishida")
+            array.add("Melissa Benoist, Chyler Leigh, David Harewood")
+            array.add("Dan Castellaneta, Julie Kavner, Nancy Cartwright")
+            array.add("Norman Reedus, Danai Gurira, Andrew Lincoln")
 
             return array
         }

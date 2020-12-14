@@ -19,25 +19,25 @@ class FavouriteRepository (private val context: Context) {
         tvDao = db.tvDao()
     }
 
-    suspend fun getAllMovie(): ArrayList<MovieItem> = movieDao.getAll()
-    suspend fun getAllTV(): ArrayList<TVItem> = tvDao.getAll()
+    fun getAllMovie(): List<MovieItem> = movieDao.getAll()
+    fun getAllTV(): List<TVItem> = tvDao.getAll()
 
-    fun getMovieLiveData(): LiveData<ArrayList<MovieItem>> = movieDao.getLiveData()
-    fun getTVLiveData(): LiveData<ArrayList<TVItem>> = tvDao.getLiveData()
+    fun getMovieLiveData(): LiveData<List<MovieItem>> = movieDao.getLiveData()
+    fun getTVLiveData(): LiveData<List<TVItem>> = tvDao.getLiveData()
 
-    suspend fun insertMovie(movie: MovieItem) {
+    fun insertMovie(movie: MovieItem) {
         movieDao.insert(movie)
     }
 
-    suspend fun deleteMovie(movie: MovieItem) {
+    fun deleteMovie(movie: MovieItem) {
         movieDao.delete(movie)
     }
 
-    suspend fun insertTV(tv: TVItem) {
+    fun insertTV(tv: TVItem) {
         tvDao.insert(tv)
     }
 
-    suspend fun deleteTV(tv: TVItem) {
+    fun deleteTV(tv: TVItem) {
         tvDao.delete(tv)
     }
 }

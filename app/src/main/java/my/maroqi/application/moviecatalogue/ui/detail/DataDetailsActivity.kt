@@ -18,7 +18,6 @@ import my.maroqi.application.moviecatalogue.data.source.local.TVData
 import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.ui.main.MainActivity
 import my.maroqi.application.moviecatalogue.ui.main.list.CatalogueListViewModel
-import my.maroqi.application.moviecatalogue.utility.ListCaster
 import my.maroqi.application.moviecatalogue.utility.ListItemType
 import my.maroqi.application.moviecatalogue.viewmodel.ViewModelFactory
 
@@ -135,12 +134,12 @@ class DataDetailsActivity : AppCompatActivity() {
 
         releaseDate.text = movieItem?.releaseDate
         country.text = movieItem?.country
-        genre.text = ListCaster.getStringList(movieItem?.genre)
+        genre.text = movieItem?.genre
         duration.text = movieItem?.duration
         desc.text = movieItem?.desc
-        teams.text = ListCaster.getStringListFromMap(movieItem?.teams)
+        teams.text = movieItem?.teams
         rating.text = movieItem?.rating.toString()
-        actors.text = ListCaster.getStringList(movieItem?.actors)
+        actors.text = movieItem?.actors
     }
 
     @SuppressLint("SetTextI18n")
@@ -153,12 +152,12 @@ class DataDetailsActivity : AppCompatActivity() {
             .into(poster)
 
         releaseDate.text = tvItem?.releaseDate
-        genre.text = ListCaster.getStringList(tvItem?.genre)
+        genre.text = tvItem?.genre
         country.visibility = View.GONE
         duration.text = tvItem?.duration
         desc.text = tvItem?.desc
-        teams.text = ListCaster.getStringList(tvItem?.teams)
+        teams.text = tvItem?.teams
         rating.text = tvItem?.rating.toString()
-        actors.text = ListCaster.getStringList(tvItem?.actors)
+        actors.text = tvItem?.actors
     }
 }

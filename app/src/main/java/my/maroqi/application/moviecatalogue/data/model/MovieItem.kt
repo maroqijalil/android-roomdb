@@ -14,10 +14,10 @@ data class MovieItem (
     var poster: Int = 0,
     var releaseDate: String? = null,
     var country: String? = null,
-    var genre: ArrayList<String>? = null,
+    var genre: String? = null,
     var duration: String? = null,
     var desc: String? = null,
-    var teams: Map<String, String>? = null,
+    var teams: String? = null,
     var rating: Int = 0,
-    var actors: ArrayList<String>? = null
+    var actors: String? = null
 ): Parcelable

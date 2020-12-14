@@ -8,12 +8,12 @@ class TVRepository : RepositorySource<TVItem> {
     private var titles: ArrayList<String> = TVData.titles
     private var years: ArrayList<Int> = TVData.years
     private var releaseDate: ArrayList<String> = TVData.releaseDate
-    private var genres: ArrayList<ArrayList<String>> = TVData.genres
+    private var genres: ArrayList<String> = TVData.genres
     private var durations: ArrayList<String> = TVData.duration
     private var rating: ArrayList<Int> = TVData.userScore
     private var descs: ArrayList<String> = TVData.shortDesc
-    private var teams: ArrayList<ArrayList<String>> = TVData.teams
-    private var actors: ArrayList<ArrayList<String>> = TVData.actors
+    private var teams: ArrayList<String> = TVData.teams
+    private var actors: ArrayList<String> = TVData.actors
 
     override fun getListData(): ArrayList<TVItem> {
         val tvListData: ArrayList<TVItem> = arrayListOf()

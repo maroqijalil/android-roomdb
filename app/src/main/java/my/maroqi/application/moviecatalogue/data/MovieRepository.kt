@@ -9,12 +9,12 @@ class MovieRepository : RepositorySource<MovieItem> {
     private var years: ArrayList<Int> = MovieData.years
     private var releaseDate: ArrayList<String> = MovieData.releaseDate
     private var countries: ArrayList<String> = MovieData.country
-    private var genres: ArrayList<ArrayList<String>> = MovieData.genres
+    private var genres: ArrayList<String> = MovieData.genres
     private var durations: ArrayList<String> = MovieData.duration
     private var rating: ArrayList<Int> = MovieData.userScore
     private var descs: ArrayList<String> = MovieData.shortDesc
-    private var teams: ArrayList<Map<String, String>> = MovieData.teams
-    private var actors: ArrayList<ArrayList<String>> = MovieData.actors
+    private var teams: ArrayList<String> = MovieData.teams
+    private var actors: ArrayList<String> = MovieData.actors
 
     override fun getListData(): ArrayList<MovieItem> {
         val movieListData: ArrayList<MovieItem> = arrayListOf()

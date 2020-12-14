@@ -30,7 +30,7 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
     private val tvRepository = TVRepository()
 
     private val dataRepository = FavouriteRepository(context)
-    private lateinit var repositoryObserver: Observer<ArrayList<*>>
+    private lateinit var repositoryObserver: Observer<List<*>>
 
     companion object {
         const val MOVIE_SVD = "movie_list_svd"
@@ -46,6 +46,7 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
                     getMovieListData()
                 }
             }
+            dataRepository.getMovieLiveData().observeForever(repositoryObserver)
             getMovieListData()
         }
         else if (this.type == ListItemType.TV_SHOW) {
@@ -54,6 +55,7 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
                     getTVListData()
                 }
             }
+            dataRepository.getTVLiveData().observeForever(repositoryObserver)
             getTVListData()
         }
     }

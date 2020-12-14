@@ -16,7 +16,6 @@ import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.source.local.TVData
 import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.data.source.local.DataIdlingResource
-import my.maroqi.application.moviecatalogue.utility.ListCaster
 import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Before
@@ -71,9 +70,7 @@ class MainActivityTest {
         onView(withId(R.id.tv_detail_teams)).check(
             matches(
                 withText(
-                    ListCaster.getStringListFromMap(
-                        movieList[4].teams
-                    )
+                    movieList[4].teams
                 )
             )
         )
@@ -81,9 +78,7 @@ class MainActivityTest {
         onView(withId(R.id.tv_detail_actor)).check(
             matches(
                 withText(
-                    ListCaster.getStringList(
-                        movieList[4].actors
-                    )
+                    movieList[4].actors
                 )
             )
         )
@@ -113,9 +108,9 @@ class MainActivityTest {
         onView(withId(R.id.tv_detail_release)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_detail_release)).check(matches(withText(tvList[2].releaseDate)))
         onView(withId(R.id.tv_detail_teams)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_detail_teams)).check(matches(withText(ListCaster.getStringList(tvList[2].teams))))
+        onView(withId(R.id.tv_detail_teams)).check(matches(withText(tvList[2].teams)))
         onView(withId(R.id.tv_detail_actor)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_detail_actor)).check(matches(withText(ListCaster.getStringList(tvList[2].actors))))
+        onView(withId(R.id.tv_detail_actor)).check(matches(withText(tvList[2].actors)))
     }
 
     private fun getMovieListData(): ArrayList<MovieItem> {

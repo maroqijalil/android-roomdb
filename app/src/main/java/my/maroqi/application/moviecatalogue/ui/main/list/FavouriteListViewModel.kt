@@ -9,6 +9,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import my.maroqi.application.moviecatalogue.data.FavouriteRepository
+import my.maroqi.application.moviecatalogue.data.model.MovieItem
+import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.utility.ListItemType
 import my.maroqi.application.moviecatalogue.utility.MovieResource
 import my.maroqi.application.moviecatalogue.utility.TVResource
@@ -90,5 +92,21 @@ class FavouriteListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
         } else {
             savedState.get<ArrayList<*>>(CatalogueListViewModel.TV_SVD)
         }
+    }
+
+    fun insertFavMovie(movie: MovieItem) {
+        vmCoroutineScope.launchIdling { dataRepository.insertMovie(movie) }
+    }
+
+    fun deleteFavMovie(movie: MovieItem) {
+        vmCoroutineScope.launchIdling { dataRepository.deleteMovie(movie) }
+    }
+
+    fun insertFavTV(tv: TVItem) {
+        vmCoroutineScope.launchIdling { dataRepository.insertTV(tv) }
+    }
+
+    fun deleteFavTV(tv: TVItem) {
+        vmCoroutineScope.launchIdling { dataRepository.deleteTV(tv) }
     }
 }

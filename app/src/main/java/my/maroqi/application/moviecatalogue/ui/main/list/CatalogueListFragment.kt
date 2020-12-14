@@ -1,6 +1,7 @@
 package my.maroqi.application.moviecatalogue.ui.main.list
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,14 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import my.maroqi.application.moviecatalogue.R
 import my.maroqi.application.moviecatalogue.ui.main.list.adapter.DataListAdapter
 import my.maroqi.application.moviecatalogue.ui.main.list.adapter.DataListDecoration
-import my.maroqi.application.moviecatalogue.utility.ListItemType
+import my.maroqi.application.moviecatalogue.utility.*
 import my.maroqi.application.moviecatalogue.viewmodel.ViewModelFactory
 
-class CatalogueListFragment(private val type: Int?) : Fragment() {
+class CatalogueListFragment(private val type: Int?) : Fragment(), DBHelper, MainHelper {
 
     private lateinit var vmCatalogueList: CatalogueListViewModel
     private lateinit var vmFavouriteList: FavouriteListViewModel
     private lateinit var mType: ListItemType
+    private lateinit var alertDialog: AlertDialog.Builder
 
     private lateinit var rvDataList: RecyclerView
     private lateinit var rvaDataList: DataListAdapter
@@ -66,6 +68,7 @@ class CatalogueListFragment(private val type: Int?) : Fragment() {
     private fun setupitemView(v: View) {
         mType = arguments?.getSerializable(FRAGMENT_TYPE) as ListItemType
         ctx = v.context
+        alertDialog = AlertDialog.Builder(ctx, R.style.Theme_AppCompat_DayNight_Dialog_Alert)
 
         if (type == CatalogueListPagerAdapter.listPageType["home"]) {
             vmCatalogueList = ViewModelProvider(
@@ -131,5 +134,41 @@ class CatalogueListFragment(private val type: Int?) : Fragment() {
         }
 
         rvaDataList = DataListAdapter(dataList, mType)
+    }
+
+    override fun insertFavMovie(item: MovieResource) {
+        vmCatalogueList.insertFavMovie(item.movie)
+    }
+
+    override fun insertFavTV(item: TVResource) {
+        vmCatalogueList.insertFavTV(item.tv)
+    }
+
+    override fun showAlert(title: String, msg: String, item: Any, type: ListItemType) {
+        alertDialog.setTitle(title)
+        .setMessage(msg)
+        .setPositiveButton(getString(R.string.ask_yes)) { _, _ ->
+            if (type == ListItemType.TV_SHOW) {
+                if (this.type == CatalogueListPagerAdapter.listPageType["home"]) {
+                    vmCatalogueList.deleteFavTV((item as TVResource).tv)
+                } else if (this.type == CatalogueListPagerAdapter.listPageType["fav"]) {
+                    vmFavouriteList.deleteFavTV((item as TVResource).tv)
+                }
+                showToast((item as TVResource).tv.title + " " + getString(R.string.del_title2))
+            } else if (type == ListItemType.MOVIE) {
+                if (this.type == CatalogueListPagerAdapter.listPageType["home"]) {
+                    vmCatalogueList.deleteFavMovie((item as MovieResource).movie)
+                } else if (this.type == CatalogueListPagerAdapter.listPageType["fav"]) {
+                    vmFavouriteList.deleteFavMovie((item as MovieResource).movie)
+                }
+                showToast((item as MovieResource).movie.title + " " + getString(R.string.del_title2))
+            }
+        }
+        .setNegativeButton(getString(R.string.ask_no)) { dialog, _ -> dialog.cancel() }
+        .create().show()
+    }
+
+    override fun showToast(message: String) {
+        (ctx as MainHelper).showToast(message)
     }
 }

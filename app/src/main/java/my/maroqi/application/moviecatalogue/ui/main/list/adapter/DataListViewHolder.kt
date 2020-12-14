@@ -13,10 +13,7 @@ import my.maroqi.application.moviecatalogue.data.source.local.MovieData
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.source.local.TVData
 import my.maroqi.application.moviecatalogue.data.model.TVItem
-import my.maroqi.application.moviecatalogue.utility.ListCaster
-import my.maroqi.application.moviecatalogue.utility.ListItemType
-import my.maroqi.application.moviecatalogue.utility.MovieResource
-import my.maroqi.application.moviecatalogue.utility.TVResource
+import my.maroqi.application.moviecatalogue.utility.*
 
 class DataListViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
@@ -28,14 +25,33 @@ class DataListViewHolder(v: View) : RecyclerView.ViewHolder(v) {
                 .load(MovieData.drawables[item.movie.poster])
                 .into(iv_main_poster)
 
+            setupFavButtonMovie(item)
+
             tv_main_title.text = item.movie.title
             tv_main_year.text = "(" + item.movie.year.toString() + ")"
-            tv_main_genre.text = ListCaster.getStringList(item.movie.genre)
+            tv_main_genre.text = item.movie.genre
             tv_main_rating.text = item.movie.rating.toString()
-            tv_main_teams.text = ListCaster.getStringListFromMap(item.movie.teams)
-            tv_main_actor.text = ListCaster.getStringList(item.movie.actors)
+            tv_main_teams.text = item.movie.teams
+            tv_main_actor.text = item.movie.actors
 
             setupOnClick(pos, ListItemType.MOVIE)
+
+            btn_fav_add.setOnClickListener{
+                if (item.favourite) {
+                    (it.context as DBHelper).showAlert(
+                        context.getString(R.string.del_title),
+                        context.getString(R.string.del_question) + " " + item.movie.title,
+                        item, ListItemType.MOVIE
+                    )
+                } else {
+                    (it.context as DBHelper).insertFavMovie(item)
+                    (it.context as MainHelper).showToast(item.movie.title + " " + context.getString(
+                        R.string.in_title))
+
+                    item.favourite = true
+                    setupFavButtonMovie(item)
+                }
+            }
         }
     }
 
@@ -46,14 +62,33 @@ class DataListViewHolder(v: View) : RecyclerView.ViewHolder(v) {
                 .load(TVData.drawables[item.tv.poster])
                 .into(iv_main_poster)
 
+            setupFavButtonTV(item)
+
             tv_main_title.text = item.tv.title
             tv_main_year.text = "(" + item.tv.year.toString() + ")"
-            tv_main_genre.text = ListCaster.getStringList(item.tv.genre)
+            tv_main_genre.text = item.tv.genre
             tv_main_rating.text = item.tv.rating.toString()
-            tv_main_teams.text = ListCaster.getStringList(item.tv.teams)
-            tv_main_actor.text = ListCaster.getStringList(item.tv.actors)
+            tv_main_teams.text = item.tv.teams
+            tv_main_actor.text = item.tv.actors
 
             setupOnClick(pos, ListItemType.TV_SHOW)
+
+            btn_fav_add.setOnClickListener{
+                if (item.favourite) {
+                    (it.context as DBHelper).showAlert(
+                        context.getString(R.string.del_title),
+                        context.getString(R.string.del_question) + " " + item.tv.title,
+                        item, ListItemType.TV_SHOW
+                    )
+                } else {
+                    (it.context as DBHelper).insertFavTV(item)
+                    (it.context as MainHelper).showToast(item.tv.title + " " + context.getString(
+                        R.string.in_title))
+
+//                    item.favourite = true
+//                    setupFavButtonTV(item)
+                }
+            }
         }
     }
 
@@ -63,9 +98,23 @@ class DataListViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         }
     }
 
-    private fun setupFavButton(user: MovieResource) {
+    private fun setupFavButtonMovie(item: MovieResource) {
         with(itemView) {
-            if (user.favourite) {
+            if (item.favourite) {
+                Picasso.get()
+                    .load(R.drawable.baseline_favorite_black_36dp)
+                    .into(btn_fav_add)
+            } else {
+                Picasso.get()
+                    .load(R.drawable.baseline_favorite_border_black_36dp)
+                    .into(btn_fav_add)
+            }
+        }
+    }
+
+    private fun setupFavButtonTV(item: TVResource) {
+        with(itemView) {
+            if (item.favourite) {
                 Picasso.get()
                     .load(R.drawable.baseline_favorite_black_36dp)
                     .into(btn_fav_add)
