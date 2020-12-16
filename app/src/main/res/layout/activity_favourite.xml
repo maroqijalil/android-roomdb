@@ -35,14 +35,14 @@
         </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/tabs_fav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+        android:id="@+id/view_pager_fav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

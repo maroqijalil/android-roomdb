@@ -7,11 +7,15 @@ import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.data.source.local.db.DataRoomDatabase
 import my.maroqi.application.moviecatalogue.data.source.local.db.MovieItemDao
 import my.maroqi.application.moviecatalogue.data.source.local.db.TVItemDao
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class FavouriteRepository (private val context: Context) {
 
     private val movieDao: MovieItemDao
     private val tvDao: TVItemDao
+
+    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
     init {
         val db = DataRoomDatabase.getDatabase(context)
@@ -26,18 +30,18 @@ class FavouriteRepository (private val context: Context) {
     fun getTVLiveData(): LiveData<List<TVItem>> = tvDao.getLiveData()
 
     fun insertMovie(movie: MovieItem) {
-        movieDao.insert(movie)
+        executorService.execute { movieDao.insert(movie) }
     }
 
     fun deleteMovie(movie: MovieItem) {
-        movieDao.delete(movie)
+        executorService.execute { movieDao.delete(movie) }
     }
 
     fun insertTV(tv: TVItem) {
-        tvDao.insert(tv)
+        executorService.execute { tvDao.insert(tv) }
     }
 
     fun deleteTV(tv: TVItem) {
-        tvDao.delete(tv)
+        executorService.execute { tvDao.delete(tv) }
     }
 }

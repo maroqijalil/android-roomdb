@@ -28,10 +28,10 @@ class FavouriteActivity : AppCompatActivity(), NavigationHandler {
             supportFragmentManager,
             CatalogueListPagerAdapter.listPageType["fav"]
         )
-        val viewPager: ViewPager = findViewById(R.id.view_pager)
+        val viewPager: ViewPager = findViewById(R.id.view_pager_fav)
 
         viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = findViewById(R.id.tabs)
+        val tabs: TabLayout = findViewById(R.id.tabs_fav)
 
         btnFavClose = findViewById(R.id.btn_fav_close)
         btnFavClose.setOnClickListener {

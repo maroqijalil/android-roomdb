@@ -1,7 +1,6 @@
 package my.maroqi.application.moviecatalogue.data.source.local.db
 
 import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.room.*
 import my.maroqi.application.moviecatalogue.data.model.TVItem
 

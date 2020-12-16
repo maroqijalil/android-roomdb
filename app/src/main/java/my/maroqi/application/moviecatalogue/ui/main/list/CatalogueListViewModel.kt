@@ -65,9 +65,9 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
     }
 
     private fun getMovieListData() {
+        val movieListFav = dataRepository.getAllMovie()
         vmCoroutineScope.launchIdling {
             val movieListData = movieRepository.getListData()
-            val movieListFav = dataRepository.getAllMovie()
             val resourceList = arrayListOf<MovieResource>()
 
             movieListData.forEach { it1 ->
@@ -89,9 +89,9 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
     }
 
     private fun getTVListData() {
+        val tvListFav = dataRepository.getAllTV()
         vmCoroutineScope.launchIdling {
             val tvListData = tvRepository.getListData()
-            val tvListFav = dataRepository.getAllTV()
             val resourceList = arrayListOf<TVResource>()
 
             tvListData.forEach { it1 ->
@@ -139,18 +139,18 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
     }
 
     fun insertFavMovie(movie: MovieItem) {
-        vmCoroutineScope.launchIdling { dataRepository.insertMovie(movie) }
+        dataRepository.insertMovie(movie)
     }
 
     fun deleteFavMovie(movie: MovieItem) {
-        vmCoroutineScope.launchIdling { dataRepository.deleteMovie(movie) }
+        dataRepository.deleteMovie(movie)
     }
 
     fun insertFavTV(tv: TVItem) {
-        vmCoroutineScope.launchIdling { dataRepository.insertTV(tv) }
+        dataRepository.insertTV(tv)
     }
 
     fun deleteFavTV(tv: TVItem) {
-        vmCoroutineScope.launchIdling { dataRepository.deleteTV(tv) }
+        dataRepository.deleteTV(tv)
     }
 }
