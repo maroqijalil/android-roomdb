@@ -18,7 +18,7 @@ import my.maroqi.application.moviecatalogue.ui.main.list.adapter.DataListDecorat
 import my.maroqi.application.moviecatalogue.utility.*
 import my.maroqi.application.moviecatalogue.viewmodel.ViewModelFactory
 
-class CatalogueListFragment(private val type: Int?) : Fragment(), DBHelper, MainHelper {
+class CatalogueListFragment(private val type: Int) : Fragment(), DBHelper, MainHelper {
 
     private lateinit var vmCatalogueList: CatalogueListViewModel
     private lateinit var vmFavouriteList: FavouriteListViewModel
@@ -38,7 +38,7 @@ class CatalogueListFragment(private val type: Int?) : Fragment(), DBHelper, Main
 
         @JvmStatic
         fun newInstance(pos: Int, pageType: Int?): CatalogueListFragment {
-            val fr = CatalogueListFragment(pageType)
+            val fr = CatalogueListFragment(pageType!!)
             val bundle = Bundle()
 
             if (CatalogueListPagerAdapter.TAB_TITLES[pos] == CatalogueListPagerAdapter.TAB_TITLES[0])
@@ -47,6 +47,7 @@ class CatalogueListFragment(private val type: Int?) : Fragment(), DBHelper, Main
                 bundle.putSerializable(FRAGMENT_TYPE, ListItemType.TV_SHOW)
 
             fr.arguments = bundle
+
             return fr
         }
     }
@@ -55,8 +56,15 @@ class CatalogueListFragment(private val type: Int?) : Fragment(), DBHelper, Main
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_list_catalogue, container, false)
-        setupitemView(v)
+        var v: View? = null
+
+//        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
+            v = inflater.inflate(R.layout.fragment_list_catalogue, container, false)
+            setupitemView(v)
+//        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
+//            v = inflater.inflate(R.layout.fragment_list_favourite, container, false)
+//            setupitemView(v)
+//        }
         return v
     }
 
@@ -86,7 +94,11 @@ class CatalogueListFragment(private val type: Int?) : Fragment(), DBHelper, Main
             vmFavouriteList.setType(mType)
         }
 
-        rvDataList = v.findViewById(R.id.rv_main_list)
+//        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
+            rvDataList = v.findViewById(R.id.rv_main_list)
+//        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
+//            rvDataList = v.findViewById(R.id.rv_fav_list)
+//        }
     }
 
     private fun setupView() {
@@ -133,7 +145,7 @@ class CatalogueListFragment(private val type: Int?) : Fragment(), DBHelper, Main
                 setupObserver()
         }
 
-        rvaDataList = DataListAdapter(dataList, mType)
+        rvaDataList = DataListAdapter(this, dataList, mType)
     }
 
     override fun insertFavMovie(item: MovieResource) {
@@ -144,7 +156,7 @@ class CatalogueListFragment(private val type: Int?) : Fragment(), DBHelper, Main
         vmCatalogueList.insertFavTV(item.tv)
     }
 
-    override fun showAlert(title: String, msg: String, item: Any, type: ListItemType) {
+    override fun showAlert(title: String, msg: String, item: Any, type: ListItemType, position: Int) {
         alertDialog.setTitle(title)
         .setMessage(msg)
         .setPositiveButton(getString(R.string.ask_yes)) { _, _ ->
@@ -154,6 +166,7 @@ class CatalogueListFragment(private val type: Int?) : Fragment(), DBHelper, Main
                 } else if (this.type == CatalogueListPagerAdapter.listPageType["fav"]) {
                     vmFavouriteList.deleteFavTV((item as TVResource).tv)
                 }
+                rvaDataList.deleteData(position)
                 showToast((item as TVResource).tv.title + " " + getString(R.string.del_title2))
             } else if (type == ListItemType.MOVIE) {
                 if (this.type == CatalogueListPagerAdapter.listPageType["home"]) {

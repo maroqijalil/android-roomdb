@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_data_list.view.*
@@ -15,7 +16,7 @@ import my.maroqi.application.moviecatalogue.data.source.local.TVData
 import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.utility.*
 
-class DataListViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+class DataListViewHolder(v: View, private val fragment: Fragment) : RecyclerView.ViewHolder(v) {
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SetTextI18n")
@@ -38,14 +39,14 @@ class DataListViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
             btn_fav_add.setOnClickListener{
                 if (item.favourite) {
-                    (it.context as DBHelper).showAlert(
+                    (fragment as DBHelper).showAlert(
                         context.getString(R.string.del_title),
                         context.getString(R.string.del_question) + " " + item.movie.title,
-                        item, ListItemType.MOVIE
+                        item, ListItemType.MOVIE, pos
                     )
                 } else {
-                    (it.context as DBHelper).insertFavMovie(item)
-                    (it.context as MainHelper).showToast(item.movie.title + " " + context.getString(
+                    (fragment as DBHelper).insertFavMovie(item)
+                    (fragment as MainHelper).showToast(item.movie.title + " " + context.getString(
                         R.string.in_title))
 
                     item.favourite = true
@@ -75,14 +76,14 @@ class DataListViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
             btn_fav_add.setOnClickListener{
                 if (item.favourite) {
-                    (it.context as DBHelper).showAlert(
+                    (fragment as DBHelper).showAlert(
                         context.getString(R.string.del_title),
                         context.getString(R.string.del_question) + " " + item.tv.title,
-                        item, ListItemType.TV_SHOW
+                        item, ListItemType.TV_SHOW, pos
                     )
                 } else {
-                    (it.context as DBHelper).insertFavTV(item)
-                    (it.context as MainHelper).showToast(item.tv.title + " " + context.getString(
+                    (fragment as DBHelper).insertFavTV(item)
+                    (fragment as MainHelper).showToast(item.tv.title + " " + context.getString(
                         R.string.in_title))
 
 //                    item.favourite = true

@@ -34,7 +34,7 @@ class FavouriteRepository (private val context: Context) {
     }
 
     fun deleteMovie(movie: MovieItem) {
-        executorService.execute { movieDao.delete(movie) }
+        executorService.execute { movieDao.delete(movie.title!!) }
     }
 
     fun insertTV(tv: TVItem) {
@@ -42,6 +42,6 @@ class FavouriteRepository (private val context: Context) {
     }
 
     fun deleteTV(tv: TVItem) {
-        executorService.execute { tvDao.delete(tv) }
+        executorService.execute { tvDao.delete(tv.title!!) }
     }
 }

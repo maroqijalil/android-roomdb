@@ -65,14 +65,13 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
     }
 
     private fun getMovieListData() {
-        val movieListFav = dataRepository.getAllMovie()
         vmCoroutineScope.launchIdling {
             val movieListData = movieRepository.getListData()
             val resourceList = arrayListOf<MovieResource>()
 
             movieListData.forEach { it1 ->
                 var fav = false
-                movieListFav.forEach { it2 ->
+                this@CatalogueListViewModel.dataRepository.getAllMovie()?.forEach { it2 ->
                     if (it1.title.equals(it2.title)) {
                         resourceList.add(MovieResource.getFavMovie(it1))
                         fav = true
@@ -89,14 +88,14 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
     }
 
     private fun getTVListData() {
-        val tvListFav = dataRepository.getAllTV()
+//        val tvListFav = dataRepository.getAllTV()
         vmCoroutineScope.launchIdling {
             val tvListData = tvRepository.getListData()
             val resourceList = arrayListOf<TVResource>()
 
             tvListData.forEach { it1 ->
                 var fav = false
-                tvListFav.forEach { it2 ->
+                this@CatalogueListViewModel.dataRepository.getAllTV()?.forEach { it2 ->
                     if (it1.title.equals(it2.title)) {
                         resourceList.add(TVResource.getFavTV(it1))
                         fav = true

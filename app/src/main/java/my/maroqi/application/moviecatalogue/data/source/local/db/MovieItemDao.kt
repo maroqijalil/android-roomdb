@@ -9,8 +9,8 @@ interface MovieItemDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(movie: MovieItem)
 
-    @Delete
-    fun delete(movie: MovieItem)
+    @Query("DELETE FROM movie_item WHERE title=:title")
+    fun delete(title: String)
 
     @Query("SELECT * from movie_item")
     fun getAll(): List<MovieItem>

@@ -9,8 +9,8 @@ interface TVItemDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(tv: TVItem)
 
-    @Delete
-    fun delete(tv: TVItem)
+    @Query("DELETE FROM tv_item WHERE title=:title")
+    fun delete(title: String)
 
     @Query("SELECT * from tv_item")
     fun getAll(): List<TVItem>

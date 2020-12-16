@@ -3,6 +3,7 @@ package my.maroqi.application.moviecatalogue.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
@@ -12,9 +13,10 @@ import my.maroqi.application.moviecatalogue.ui.main.MainActivity.Companion.MAIN_
 import my.maroqi.application.moviecatalogue.ui.main.MainActivity.Companion.MAIN_DATA_TYPE
 import my.maroqi.application.moviecatalogue.ui.main.list.CatalogueListPagerAdapter
 import my.maroqi.application.moviecatalogue.utility.ListItemType
+import my.maroqi.application.moviecatalogue.utility.MainHelper
 import my.maroqi.application.moviecatalogue.utility.NavigationHandler
 
-class FavouriteActivity : AppCompatActivity(), NavigationHandler {
+class FavouriteActivity : AppCompatActivity(), NavigationHandler, MainHelper {
 
     private lateinit var btnFavClose: Button
 
@@ -48,5 +50,11 @@ class FavouriteActivity : AppCompatActivity(), NavigationHandler {
         intent.putExtra(MAIN_DATA_TYPE, type)
 
         startActivity(intent)
+    }
+
+    override fun showToast(message: String) {
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 }

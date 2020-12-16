@@ -43,11 +43,11 @@ class FavouriteListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
     }
 
     private fun getMovieListData() {
-        val movieList = dataRepository.getAllMovie()
+//        val movieList = dataRepository.getAllMovie()
         vmCoroutineScope.launchIdling {
             val resourceList = arrayListOf<MovieResource>()
 
-            movieList.forEach { resourceList.add(MovieResource.getFavMovie(it)) }
+            dataRepository.getAllMovie().forEach { resourceList.add(MovieResource.getFavMovie(it)) }
 
             dataList.postValue(resourceList)
             _dataList = resourceList
@@ -56,11 +56,10 @@ class FavouriteListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
     }
 
     private fun getTVListData() {
-        val tvList = dataRepository.getAllTV()
         vmCoroutineScope.launchIdling {
             val resourceList = arrayListOf<TVResource>()
 
-            tvList.forEach { resourceList.add(TVResource.getFavTV(it)) }
+            dataRepository.getAllTV()?.forEach { resourceList.add(TVResource.getFavTV(it)) }
 
             dataList.postValue(resourceList)
             _dataList = resourceList
