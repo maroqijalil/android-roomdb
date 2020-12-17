@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import my.maroqi.application.moviecatalogue.ui.detail.DataDetailsViewModel
 import my.maroqi.application.moviecatalogue.ui.main.list.CatalogueListViewModel
-import my.maroqi.application.moviecatalogue.ui.main.list.FavouriteListViewModel
+import my.maroqi.application.moviecatalogue.ui.favourite.list.FavouriteListViewModel
 
 class ViewModelFactory(
     private val ctx: Context,

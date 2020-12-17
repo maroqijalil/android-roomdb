@@ -18,6 +18,6 @@
         </activity>
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.detail.DataDetailsActivity" />
-        <activity android:name=".ui.main.FavouriteActivity" />
+        <activity android:name=".ui.favourite.FavouriteActivity" />
     </application>
 </manifest>

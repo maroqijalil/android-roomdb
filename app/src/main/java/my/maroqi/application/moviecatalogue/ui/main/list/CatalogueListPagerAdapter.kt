@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import my.maroqi.application.moviecatalogue.R
+import my.maroqi.application.moviecatalogue.ui.favourite.list.FavouriteListFragment
 
 class CatalogueListPagerAdapter(
     private val context: Context,
@@ -25,7 +26,11 @@ class CatalogueListPagerAdapter(
     }
 
     override fun getItem(position: Int): Fragment {
-        return CatalogueListFragment.newInstance(position, type)
+        return if (type == listPageType["home"]) {
+            CatalogueListFragment.newInstance(position)
+        } else {
+            FavouriteListFragment.newInstance(position)
+        }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

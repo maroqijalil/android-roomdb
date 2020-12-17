@@ -29,6 +29,8 @@ class DataListViewHolder(v: View, private val fragment: Fragment, private val pa
                 .load(MovieData.drawables[item.movie.poster])
                 .into(iv_main_poster)
 
+            (this.context as MainHelper).showToast(item.movie.title!!)
+
             if (page == CatalogueListPagerAdapter.listPageType["home"]) {
                 setupFavButtonMovie(item)
                 btn_fav_add.setOnClickListener {
@@ -70,6 +72,8 @@ class DataListViewHolder(v: View, private val fragment: Fragment, private val pa
             Picasso.get()
                 .load(TVData.drawables[item.tv.poster])
                 .into(iv_main_poster)
+
+            (this.context as MainHelper).showToast(item.tv.title!!)
 
             if (page == CatalogueListPagerAdapter.listPageType["home"]) {
                 setupFavButtonTV(item)

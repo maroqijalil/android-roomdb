@@ -11,6 +11,7 @@ import my.maroqi.application.moviecatalogue.ui.detail.DataDetailsActivity
 import my.maroqi.application.moviecatalogue.R
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.model.TVItem
+import my.maroqi.application.moviecatalogue.ui.favourite.FavouriteActivity
 import my.maroqi.application.moviecatalogue.utility.ListItemType
 import my.maroqi.application.moviecatalogue.ui.main.list.CatalogueListPagerAdapter
 import my.maroqi.application.moviecatalogue.utility.MainHelper

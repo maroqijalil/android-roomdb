@@ -1,4 +1,4 @@
-package my.maroqi.application.moviecatalogue.ui.main
+package my.maroqi.application.moviecatalogue.ui.favourite
 
 import android.content.Intent
 import android.os.Bundle

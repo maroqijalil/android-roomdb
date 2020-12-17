@@ -17,7 +17,7 @@ class DataListAdapter(
     fr: Fragment,
     genList: ArrayList<*>?,
     private val type: ListItemType,
-    private val pageType: Int
+    private val pageType: Int?
 ) :
     RecyclerView.Adapter<DataListViewHolder>() {
 
@@ -34,7 +34,7 @@ class DataListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataListViewHolder {
         val viewHolder =
             LayoutInflater.from(parent.context).inflate(R.layout.item_data_list, parent, false)
-        return DataListViewHolder(viewHolder, fragment, pageType)
+        return DataListViewHolder(viewHolder, fragment, pageType!!)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
