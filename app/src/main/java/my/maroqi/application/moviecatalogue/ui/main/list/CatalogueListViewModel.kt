@@ -139,17 +139,45 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
 
     fun insertFavMovie(movie: MovieItem) {
         dataRepository.insertMovie(movie)
+        vmCoroutineScope.launchIdling {
+            (_dataList as ArrayList<MovieResource>)?.forEachIndexed { i, it ->
+                if (it.movie.title == movie.title)
+                    (_dataList as ArrayList<MovieResource>)[i] = MovieResource.getFavMovie(movie)
+            }
+            dataList.postValue(_dataList)
+        }
     }
 
     fun deleteFavMovie(movie: MovieItem) {
         dataRepository.deleteMovie(movie)
+        vmCoroutineScope.launchIdling {
+            (_dataList as ArrayList<MovieResource>)?.forEachIndexed { i, it ->
+                if (it.movie.title == movie.title)
+                    (_dataList as ArrayList<MovieResource>)[i] = MovieResource.getMovie(movie)
+            }
+            dataList.postValue(_dataList)
+        }
     }
 
     fun insertFavTV(tv: TVItem) {
         dataRepository.insertTV(tv)
+        vmCoroutineScope.launchIdling {
+            (_dataList as ArrayList<TVResource>)?.forEachIndexed { i, it ->
+                if (it.tv.title == tv.title)
+                    (_dataList as ArrayList<TVResource>)[i] = TVResource.getFavTV(tv)
+            }
+            dataList.postValue(_dataList)
+        }
     }
 
     fun deleteFavTV(tv: TVItem) {
         dataRepository.deleteTV(tv)
+        vmCoroutineScope.launchIdling {
+            (_dataList as ArrayList<TVResource>)?.forEachIndexed { i, it ->
+                if (it.tv.title == tv.title)
+                    (_dataList as ArrayList<TVResource>)[i] = TVResource.getTV(tv)
+            }
+            dataList.postValue(_dataList)
+        }
     }
 }

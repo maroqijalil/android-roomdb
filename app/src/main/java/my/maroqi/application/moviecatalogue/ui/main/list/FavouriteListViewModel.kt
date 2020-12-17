@@ -93,19 +93,29 @@ class FavouriteListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
         }
     }
 
-    fun insertFavMovie(movie: MovieItem) {
-        dataRepository.insertMovie(movie)
-    }
-
     fun deleteFavMovie(movie: MovieItem) {
         dataRepository.deleteMovie(movie)
-    }
-
-    fun insertFavTV(tv: TVItem) {
-        dataRepository.insertTV(tv)
+        vmCoroutineScope.launchIdling {
+            var index = 0
+            (_dataList as ArrayList<MovieResource>)?.forEachIndexed { i, it ->
+                if (it.movie.title == movie.title)
+                    index = i
+            }
+            (_dataList as ArrayList<MovieResource>).removeAt(index)
+            dataList.postValue(_dataList)
+        }
     }
 
     fun deleteFavTV(tv: TVItem) {
         dataRepository.deleteTV(tv)
+        vmCoroutineScope.launchIdling {
+            var index = 0
+            (_dataList as ArrayList<TVResource>)?.forEachIndexed { i, it ->
+                if (it.tv.title == tv.title)
+                    index = i
+            }
+            (_dataList as ArrayList<TVResource>).removeAt(index)
+            dataList.postValue(_dataList)
+        }
     }
 }

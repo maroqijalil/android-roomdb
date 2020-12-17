@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import my.maroqi.application.moviecatalogue.ui.detail.DataDetailsActivity
 import my.maroqi.application.moviecatalogue.R
+import my.maroqi.application.moviecatalogue.data.model.MovieItem
+import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.utility.ListItemType
 import my.maroqi.application.moviecatalogue.ui.main.list.CatalogueListPagerAdapter
 import my.maroqi.application.moviecatalogue.utility.MainHelper
@@ -47,11 +49,16 @@ class MainActivity : AppCompatActivity(), NavigationHandler, MainHelper {
         tabs.setupWithViewPager(viewPager)
     }
 
-    override fun navigateTo(index: Int, type: ListItemType) {
+    override fun navigateTo(index: Int, type: ListItemType, item: Any) {
         val intent = Intent(this, DataDetailsActivity::class.java)
 
-        intent.putExtra(MAIN_DATA, index)
-        intent.putExtra(MAIN_DATA_TYPE, type)
+        if (type == ListItemType.TV_SHOW) {
+            intent.putExtra(MAIN_DATA, item as TVItem)
+            intent.putExtra(MAIN_DATA_TYPE, type)
+        } else if (type == ListItemType.MOVIE) {
+            intent.putExtra(MAIN_DATA, item as MovieItem)
+            intent.putExtra(MAIN_DATA_TYPE, type)
+        }
 
         startActivity(intent)
     }

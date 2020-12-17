@@ -35,7 +35,7 @@ class DataListViewHolder(v: View, private val fragment: Fragment) : RecyclerView
             tv_main_teams.text = item.movie.teams
             tv_main_actor.text = item.movie.actors
 
-            setupOnClick(pos, ListItemType.MOVIE)
+            setupOnClick(pos, ListItemType.MOVIE, item)
 
             btn_fav_add.setOnClickListener{
                 if (item.favourite) {
@@ -72,7 +72,7 @@ class DataListViewHolder(v: View, private val fragment: Fragment) : RecyclerView
             tv_main_teams.text = item.tv.teams
             tv_main_actor.text = item.tv.actors
 
-            setupOnClick(pos, ListItemType.TV_SHOW)
+            setupOnClick(pos, ListItemType.TV_SHOW, item)
 
             btn_fav_add.setOnClickListener{
                 if (item.favourite) {
@@ -93,9 +93,9 @@ class DataListViewHolder(v: View, private val fragment: Fragment) : RecyclerView
         }
     }
 
-    private fun setupOnClick(pos: Int, type: ListItemType) {
+    private fun setupOnClick(pos: Int, type: ListItemType, item: Any) {
         itemView.item_container.setOnClickListener {
-            (it.context as MainActivity).navigateTo(pos, type)
+            (it.context as NavigationHandler).navigateTo(pos, type, item)
         }
     }
 

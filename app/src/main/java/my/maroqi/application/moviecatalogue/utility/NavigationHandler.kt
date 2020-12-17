@@ -1,5 +1,5 @@
 package my.maroqi.application.moviecatalogue.utility
 
 interface NavigationHandler {
-    fun navigateTo(index: Int, type: ListItemType)
+    fun navigateTo(index: Int, type: ListItemType, item: Any)
 }

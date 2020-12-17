@@ -38,7 +38,7 @@ class DataDetailsActivity : AppCompatActivity() {
     private lateinit var actors: TextView
 
     private lateinit var type: ListItemType
-    private var index: Int = 0
+    private var item: Any? = null
 
     private var movieItem: MovieItem? = null
     private var tvItem: TVItem? = null
@@ -57,7 +57,7 @@ class DataDetailsActivity : AppCompatActivity() {
 
     private fun setupItemView() {
         type = intent.getSerializableExtra(MainActivity.MAIN_DATA_TYPE) as ListItemType
-        index = intent.getIntExtra(MainActivity.MAIN_DATA, 0)
+        item = intent.getParcelableExtra(MainActivity.MAIN_DATA)
 
         vmDataDetails = ViewModelProvider(
             this,
@@ -79,7 +79,7 @@ class DataDetailsActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun setupView() {
-        vmDataDetails.setType(type, index)
+        vmDataDetails.setData(type, item)
 
         initDataDetail()
     }

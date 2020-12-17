@@ -11,6 +11,7 @@ import my.maroqi.application.moviecatalogue.data.MovieRepository
 import my.maroqi.application.moviecatalogue.data.TVRepository
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.model.TVItem
+import my.maroqi.application.moviecatalogue.ui.main.MainActivity
 import my.maroqi.application.moviecatalogue.utility.ListItemType
 import my.maroqi.application.moviecatalogue.utility.launchIdling
 
@@ -26,21 +27,28 @@ class DataDetailsViewModel(svd: SavedStateHandle) : ViewModel() {
     private lateinit var type: ListItemType
     private var vmCoroutineScope = CoroutineScope(Job() + Dispatchers.IO)
 
-    private val movieRepository = MovieRepository()
-    private val tvRepository = TVRepository()
-
     companion object {
         const val MOVIE_D_SVD = "movie_detail_svd"
         const val TV_D_SVD = "tv_detail_svd"
     }
 
-    fun setType(type: ListItemType, index: Int) {
+    fun setData(type: ListItemType, item: Any?) {
         this.type = type
 
-        if (this.type == ListItemType.MOVIE)
-            getMovieDetail(index)
-        else if (this.type == ListItemType.TV_SHOW)
-            getTVDetail(index)
+        if (this.type == ListItemType.MOVIE) {
+            vmCoroutineScope.launchIdling {
+                detailMovie.postValue(item as MovieItem)
+                _detailMovie = item
+                saveDataDetail()
+            }
+        } else if (this.type == ListItemType.TV_SHOW) {
+            vmCoroutineScope.launchIdling {
+                detailTV.postValue(item as TVItem)
+                _detailTV = item
+                saveDataDetail()
+            }
+        }
+
     }
 
     fun getMovieDetail(): LiveData<MovieItem> {
@@ -49,26 +57,6 @@ class DataDetailsViewModel(svd: SavedStateHandle) : ViewModel() {
 
     fun getTVDetail(): LiveData<TVItem> {
         return detailTV
-    }
-
-    private fun getMovieDetail(index: Int) {
-        vmCoroutineScope.launchIdling {
-            val movieItem = movieRepository.getData(index)
-
-            detailMovie.postValue(movieItem)
-            _detailMovie = movieItem
-            saveDataDetail()
-        }
-    }
-
-    private fun getTVDetail(index: Int) {
-        vmCoroutineScope.launchIdling {
-            val tvItem = tvRepository.getData(index)
-
-            detailTV.postValue(tvItem)
-            _detailTV = tvItem
-            saveDataDetail()
-        }
     }
 
     private fun saveDataDetail() {
