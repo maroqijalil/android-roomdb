@@ -13,7 +13,12 @@ import my.maroqi.application.moviecatalogue.data.model.TVItem
 import my.maroqi.application.moviecatalogue.utility.MovieResource
 import my.maroqi.application.moviecatalogue.utility.TVResource
 
-class DataListAdapter(fr: Fragment, genList: ArrayList<*>?, private val type: ListItemType) :
+class DataListAdapter(
+    fr: Fragment,
+    genList: ArrayList<*>?,
+    private val type: ListItemType,
+    private val pageType: Int
+) :
     RecyclerView.Adapter<DataListViewHolder>() {
 
     private val movieList: ArrayList<MovieResource> = arrayListOf()
@@ -29,7 +34,7 @@ class DataListAdapter(fr: Fragment, genList: ArrayList<*>?, private val type: Li
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataListViewHolder {
         val viewHolder =
             LayoutInflater.from(parent.context).inflate(R.layout.item_data_list, parent, false)
-        return DataListViewHolder(viewHolder, fragment)
+        return DataListViewHolder(viewHolder, fragment, pageType)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

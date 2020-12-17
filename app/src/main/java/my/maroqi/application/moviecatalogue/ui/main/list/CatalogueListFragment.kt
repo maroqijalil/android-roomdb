@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import my.maroqi.application.moviecatalogue.R
+import my.maroqi.application.moviecatalogue.ui.main.FavouriteActivity
 import my.maroqi.application.moviecatalogue.ui.main.list.adapter.DataListAdapter
 import my.maroqi.application.moviecatalogue.ui.main.list.adapter.DataListDecoration
 import my.maroqi.application.moviecatalogue.utility.*
@@ -58,13 +59,9 @@ class CatalogueListFragment(private val type: Int) : Fragment(), DBHelper, MainH
     ): View? {
         var v: View? = null
 
-//        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
-            v = inflater.inflate(R.layout.fragment_list_catalogue, container, false)
-            setupitemView(v)
-//        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
-//            v = inflater.inflate(R.layout.fragment_list_favourite, container, false)
-//            setupitemView(v)
-//        }
+        v = inflater.inflate(R.layout.fragment_list_catalogue, container, false)
+        setupitemView(v)
+
         return v
     }
 
@@ -94,11 +91,7 @@ class CatalogueListFragment(private val type: Int) : Fragment(), DBHelper, MainH
             vmFavouriteList.setType(mType)
         }
 
-//        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
-            rvDataList = v.findViewById(R.id.rv_main_list)
-//        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
-//            rvDataList = v.findViewById(R.id.rv_fav_list)
-//        }
+        rvDataList = v.findViewById(R.id.rv_main_list)
     }
 
     private fun setupView() {
@@ -145,7 +138,7 @@ class CatalogueListFragment(private val type: Int) : Fragment(), DBHelper, MainH
                 setupObserver()
         }
 
-        rvaDataList = DataListAdapter(this, dataList, mType)
+        rvaDataList = DataListAdapter(this, dataList, mType, type)
     }
 
     override fun insertFavMovie(item: MovieResource) {

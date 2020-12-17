@@ -3,6 +3,7 @@ package my.maroqi.application.moviecatalogue.ui.main.list.adapter
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.View
+import android.view.View.INVISIBLE
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -14,9 +15,11 @@ import my.maroqi.application.moviecatalogue.data.source.local.MovieData
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.source.local.TVData
 import my.maroqi.application.moviecatalogue.data.model.TVItem
+import my.maroqi.application.moviecatalogue.ui.main.list.CatalogueListPagerAdapter
 import my.maroqi.application.moviecatalogue.utility.*
 
-class DataListViewHolder(v: View, private val fragment: Fragment) : RecyclerView.ViewHolder(v) {
+class DataListViewHolder(v: View, private val fragment: Fragment, private val page: Int) :
+    RecyclerView.ViewHolder(v) {
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SetTextI18n")
@@ -26,7 +29,29 @@ class DataListViewHolder(v: View, private val fragment: Fragment) : RecyclerView
                 .load(MovieData.drawables[item.movie.poster])
                 .into(iv_main_poster)
 
-            setupFavButtonMovie(item)
+            if (page == CatalogueListPagerAdapter.listPageType["home"]) {
+                setupFavButtonMovie(item)
+                btn_fav_add.setOnClickListener {
+                    if (item.favourite) {
+                        (fragment as DBHelper).showAlert(
+                            context.getString(R.string.del_title),
+                            context.getString(R.string.del_question) + " " + item.movie.title,
+                            item, ListItemType.MOVIE, pos
+                        )
+                    } else {
+                        (fragment as DBHelper).insertFavMovie(item)
+                        (fragment as MainHelper).showToast(
+                            item.movie.title + " " + context.getString(
+                                R.string.in_title
+                            )
+                        )
+
+                        item.favourite = true
+                        setupFavButtonMovie(item)
+                    }
+                }
+            } else if (page == CatalogueListPagerAdapter.listPageType["fav"])
+                btn_fav_add.visibility = INVISIBLE
 
             tv_main_title.text = item.movie.title
             tv_main_year.text = "(" + item.movie.year.toString() + ")"
@@ -35,24 +60,7 @@ class DataListViewHolder(v: View, private val fragment: Fragment) : RecyclerView
             tv_main_teams.text = item.movie.teams
             tv_main_actor.text = item.movie.actors
 
-            setupOnClick(pos, ListItemType.MOVIE, item)
-
-            btn_fav_add.setOnClickListener{
-                if (item.favourite) {
-                    (fragment as DBHelper).showAlert(
-                        context.getString(R.string.del_title),
-                        context.getString(R.string.del_question) + " " + item.movie.title,
-                        item, ListItemType.MOVIE, pos
-                    )
-                } else {
-                    (fragment as DBHelper).insertFavMovie(item)
-                    (fragment as MainHelper).showToast(item.movie.title + " " + context.getString(
-                        R.string.in_title))
-
-                    item.favourite = true
-                    setupFavButtonMovie(item)
-                }
-            }
+            setupOnClick(pos, ListItemType.MOVIE, item.movie)
         }
     }
 
@@ -63,7 +71,29 @@ class DataListViewHolder(v: View, private val fragment: Fragment) : RecyclerView
                 .load(TVData.drawables[item.tv.poster])
                 .into(iv_main_poster)
 
-            setupFavButtonTV(item)
+            if (page == CatalogueListPagerAdapter.listPageType["home"]) {
+                setupFavButtonTV(item)
+                btn_fav_add.setOnClickListener {
+                    if (item.favourite) {
+                        (fragment as DBHelper).showAlert(
+                            context.getString(R.string.del_title),
+                            context.getString(R.string.del_question) + " " + item.tv.title,
+                            item, ListItemType.TV_SHOW, pos
+                        )
+                    } else {
+                        (fragment as DBHelper).insertFavTV(item)
+                        (fragment as MainHelper).showToast(
+                            item.tv.title + " " + context.getString(
+                                R.string.in_title
+                            )
+                        )
+
+                        item.favourite = true
+                        setupFavButtonTV(item)
+                    }
+                }
+            } else if (page == CatalogueListPagerAdapter.listPageType["fav"])
+                btn_fav_add.visibility = INVISIBLE
 
             tv_main_title.text = item.tv.title
             tv_main_year.text = "(" + item.tv.year.toString() + ")"
@@ -72,24 +102,7 @@ class DataListViewHolder(v: View, private val fragment: Fragment) : RecyclerView
             tv_main_teams.text = item.tv.teams
             tv_main_actor.text = item.tv.actors
 
-            setupOnClick(pos, ListItemType.TV_SHOW, item)
-
-            btn_fav_add.setOnClickListener{
-                if (item.favourite) {
-                    (fragment as DBHelper).showAlert(
-                        context.getString(R.string.del_title),
-                        context.getString(R.string.del_question) + " " + item.tv.title,
-                        item, ListItemType.TV_SHOW, pos
-                    )
-                } else {
-                    (fragment as DBHelper).insertFavTV(item)
-                    (fragment as MainHelper).showToast(item.tv.title + " " + context.getString(
-                        R.string.in_title))
-
-//                    item.favourite = true
-//                    setupFavButtonTV(item)
-                }
-            }
+            setupOnClick(pos, ListItemType.TV_SHOW, item.tv)
         }
     }
 
