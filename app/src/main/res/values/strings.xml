@@ -24,4 +24,9 @@
     <string name="in_title">inserted</string>
     <string name="del_title">Delete!</string>
     <string name="del_question">Are you sure, want to delete</string>
+
+    <string name="fav_movie_testing">Aquaman inserted</string>
+    <string name="fav_movie_testing_del">Aquaman deleted</string>
+    <string name="fav_tv_testing">Naruto Shipuden inserted</string>
+    <string name="fav_tv_testing_del">Naruto Shipuden deleted</string>
 </resources>

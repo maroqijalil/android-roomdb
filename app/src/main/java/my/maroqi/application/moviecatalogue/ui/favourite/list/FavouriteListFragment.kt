@@ -88,7 +88,7 @@ class FavouriteListFragment() : Fragment() {
         if (mType == ListItemType.TV_SHOW) {
             rvaTVList = TVPagedListAdapter(this, CatalogueListPagerAdapter.listPageType["fav"])
         } else if (mType == ListItemType.MOVIE) {
-            rvaMovieList = MoviePagedListAdapter(this, CatalogueListPagerAdapter.listPageType["home"])
+            rvaMovieList = MoviePagedListAdapter(this, CatalogueListPagerAdapter.listPageType["fav"])
         }
     }
 

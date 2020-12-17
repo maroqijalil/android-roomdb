@@ -25,7 +25,6 @@ class MoviePagedListAdapter(
 
     override fun onBindViewHolder(holder: DataListViewHolder, position: Int) {
         holder.insertMovie(MovieResource.getFavMovie(getItem(position) as MovieItem), position)
-        (fragment.context as MainHelper).showToast((getItem(position) as MovieItem).title!!)
     }
 
     companion object {

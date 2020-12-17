@@ -22,7 +22,6 @@ import my.maroqi.application.moviecatalogue.viewmodel.ViewModelFactory
 class CatalogueListFragment() : Fragment(), DBHelper, MainHelper {
 
     private lateinit var vmCatalogueList: CatalogueListViewModel
-    private lateinit var vmFavouriteList: FavouriteListViewModel
     private lateinit var mType: ListItemType
     private lateinit var alertDialog: AlertDialog.Builder
 
@@ -75,21 +74,12 @@ class CatalogueListFragment() : Fragment(), DBHelper, MainHelper {
         ctx = v.context
         alertDialog = AlertDialog.Builder(ctx, R.style.Theme_AppCompat_DayNight_Dialog_Alert)
 
-//        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
-            vmCatalogueList = ViewModelProvider(
-                this,
-                ViewModelFactory(ctx, this)
-            ).get(CatalogueListViewModel::class.java)
+        vmCatalogueList = ViewModelProvider(
+            this,
+            ViewModelFactory(ctx, this)
+        ).get(CatalogueListViewModel::class.java)
 
-            vmCatalogueList.setType(mType)
-//        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
-//            vmFavouriteList = ViewModelProvider(
-//                this,
-//                ViewModelFactory(ctx, this)
-//            ).get(FavouriteListViewModel::class.java)
-//
-//            vmFavouriteList.setType(mType)
-//        }
+        vmCatalogueList.setType(mType)
 
         rvDataList = v.findViewById(R.id.rv_main_list)
     }
@@ -114,31 +104,19 @@ class CatalogueListFragment() : Fragment(), DBHelper, MainHelper {
             }
         }
 
-//        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
-            vmCatalogueList.getDataList().observe(this, observerDataList)
-//        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
-//            vmFavouriteList.getDataList().observe(this, observerDataList)
-//        }
+        vmCatalogueList.getDataList().observe(this, observerDataList)
     }
 
     private fun initRVADataList() {
-//        if (type == CatalogueListPagerAdapter.listPageType["home"]) {
-            if (vmCatalogueList.savedState.contains(CatalogueListViewModel.MOVIE_SVD) ||
-                vmCatalogueList.savedState.contains(CatalogueListViewModel.TV_SVD)
-            ) {
-                dataList = vmCatalogueList.loadDataList()
-            } else
-                setupObserver()
-//        } else if (type == CatalogueListPagerAdapter.listPageType["fav"]) {
-//            if (vmFavouriteList.savedState.contains(CatalogueListViewModel.MOVIE_SVD) ||
-//                vmFavouriteList.savedState.contains(CatalogueListViewModel.TV_SVD)
-//            ) {
-//                dataList = vmFavouriteList.loadDataList()
-//            } else
-//                setupObserver()
-//        }
+        if (vmCatalogueList.savedState.contains(CatalogueListViewModel.MOVIE_SVD) ||
+            vmCatalogueList.savedState.contains(CatalogueListViewModel.TV_SVD)
+        ) {
+            dataList = vmCatalogueList.loadDataList()
+        } else
+            setupObserver()
 
-        rvaDataList = DataListAdapter(this, dataList, mType, CatalogueListPagerAdapter.listPageType["home"])
+        rvaDataList =
+            DataListAdapter(this, dataList, mType, CatalogueListPagerAdapter.listPageType["home"])
     }
 
     override fun insertFavMovie(item: MovieResource) {
@@ -149,29 +127,27 @@ class CatalogueListFragment() : Fragment(), DBHelper, MainHelper {
         vmCatalogueList.insertFavTV(item.tv)
     }
 
-    override fun showAlert(title: String, msg: String, item: Any, type: ListItemType, position: Int) {
+    override fun showAlert(
+        title: String,
+        msg: String,
+        item: Any,
+        type: ListItemType,
+        position: Int
+    ) {
         alertDialog.setTitle(title)
-        .setMessage(msg)
-        .setPositiveButton(getString(R.string.ask_yes)) { _, _ ->
-            if (type == ListItemType.TV_SHOW) {
-//                if (this.type == CatalogueListPagerAdapter.listPageType["home"]) {
+            .setMessage(msg)
+            .setPositiveButton(getString(R.string.ask_yes)) { _, _ ->
+                if (type == ListItemType.TV_SHOW) {
                     vmCatalogueList.deleteFavTV((item as TVResource).tv)
-//                } else if (this.type == CatalogueListPagerAdapter.listPageType["fav"]) {
-//                    vmFavouriteList.deleteFavTV((item as TVResource).tv)
-//                }
-                rvaDataList.deleteData(position)
-                showToast((item as TVResource).tv.title + " " + getString(R.string.del_title2))
-            } else if (type == ListItemType.MOVIE) {
-//                if (this.type == CatalogueListPagerAdapter.listPageType["home"]) {
+                    rvaDataList.deleteData(position)
+                    showToast((item as TVResource).tv.title + " " + getString(R.string.del_title2))
+                } else if (type == ListItemType.MOVIE) {
                     vmCatalogueList.deleteFavMovie((item as MovieResource).movie)
-//                } else if (this.type == CatalogueListPagerAdapter.listPageType["fav"]) {
-//                    vmFavouriteList.deleteFavMovie((item as MovieResource).movie)
-//                }
-                showToast((item as MovieResource).movie.title + " " + getString(R.string.del_title2))
+                    showToast((item as MovieResource).movie.title + " " + getString(R.string.del_title2))
+                }
             }
-        }
-        .setNegativeButton(getString(R.string.ask_no)) { dialog, _ -> dialog.cancel() }
-        .create().show()
+            .setNegativeButton(getString(R.string.ask_no)) { dialog, _ -> dialog.cancel() }
+            .create().show()
     }
 
     override fun showToast(message: String) {

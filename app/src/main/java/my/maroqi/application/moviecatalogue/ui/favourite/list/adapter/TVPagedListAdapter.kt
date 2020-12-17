@@ -26,7 +26,6 @@ class TVPagedListAdapter(
 
     override fun onBindViewHolder(holder: DataListViewHolder, position: Int) {
         holder.insertTV(TVResource.getFavTV(getItem(position) as TVItem), position)
-        (fragment.context as MainHelper).showToast((getItem(position) as TVItem).title!!)
     }
 
     companion object {

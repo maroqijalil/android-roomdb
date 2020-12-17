@@ -38,7 +38,7 @@ class DataDetailsViewModelTest {
 
         handle = SavedStateHandle()
         dataDetailsViewModel = DataDetailsViewModel(handle)
-        dataDetailsViewModel.setType(type, 2)
+        dataDetailsViewModel.setData(type, tvDetail)
 
         assertEquals(dataDetailsViewModel.getTVDetail().getOrAwaitValue(), tvDetail)
     }
@@ -50,7 +50,7 @@ class DataDetailsViewModelTest {
 
         handle = SavedStateHandle()
         dataDetailsViewModel = DataDetailsViewModel(handle)
-        dataDetailsViewModel.setType(type, 4)
+        dataDetailsViewModel.setData(type, movieList)
 
         assertEquals(dataDetailsViewModel.getMovieDetail().getOrAwaitValue(), movieList)
     }
