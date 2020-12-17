@@ -1,5 +1,6 @@
 package my.maroqi.application.moviecatalogue.ui.main
 
+import android.content.Intent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -28,6 +29,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.UiController
+import androidx.test.runner.intent.IntentCallback
+import my.maroqi.application.moviecatalogue.ui.detail.DataDetailsActivity
+import my.maroqi.application.moviecatalogue.ui.favourite.FavouriteActivity
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.not
@@ -165,7 +169,7 @@ class MainActivityTest {
                 )
             )
         )
-        onView(withId(R.id.tv_detail_actor)).check(matches(isDisplayed()))
+//        onView(withId(R.id.tv_detail_actor)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_detail_actor)).check(
             matches(
                 withText(
@@ -173,6 +177,10 @@ class MainActivityTest {
                 )
             )
         )
+
+        var intent = Intent(activityRule.activity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+        activityRule.activity.startActivity(intent)
 
         clickDelMovieFav()
     }
@@ -293,6 +301,15 @@ class MainActivityTest {
         onView(withId(R.id.tv_detail_teams)).check(matches(withText(tvList[favTVPosition].teams)))
         onView(withId(R.id.tv_detail_actor)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_detail_actor)).check(matches(withText(tvList[favTVPosition].actors)))
+
+        var intent = Intent(activityRule.activity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        activityRule.activity.startActivity(intent)
+
+        onView(allOf(isDisplayed(), withId(R.id.rv_main_list)))
+        onView(withId(R.id.view_pager)).perform(swipeLeft())
+
+        clickDelTVFav()
     }
 
     private fun clickAddTVFav() {
