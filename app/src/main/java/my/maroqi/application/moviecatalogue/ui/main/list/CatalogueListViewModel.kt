@@ -57,6 +57,11 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
             }
             dataRepository.getTVLiveData().observeForever(repositoryObserver)
             getTVListData()
+        } else if (this.type == ListItemType.MOVIE_T) {
+            getMovieListDataTest()
+        }
+        else if (this.type == ListItemType.TV_SHOW_T) {
+            getTVListDataTest()
         }
     }
 
@@ -88,7 +93,6 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
     }
 
     private fun getTVListData() {
-//        val tvListFav = dataRepository.getAllTV()
         vmCoroutineScope.launchIdling {
             val tvListData = tvRepository.getListData()
             val resourceList = arrayListOf<TVResource>()
@@ -178,6 +182,27 @@ class CatalogueListViewModel(svd: SavedStateHandle, ctx: Context) : ViewModel() 
                     (_dataList as ArrayList<TVResource>)[i] = TVResource.getTV(tv)
             }
             dataList.postValue(_dataList)
+        }
+    }
+
+
+    private fun getMovieListDataTest() {
+        vmCoroutineScope.launchIdling {
+            val movieListData = movieRepository.getListData()
+
+            dataList.postValue(movieListData)
+            _dataList = movieListData
+            saveDataList()
+        }
+    }
+
+    private fun getTVListDataTest() {
+        vmCoroutineScope.launchIdling {
+            val tvListData = tvRepository.getListData()
+
+            dataList.postValue(tvListData)
+            _dataList = tvListData
+            saveDataList()
         }
     }
 }

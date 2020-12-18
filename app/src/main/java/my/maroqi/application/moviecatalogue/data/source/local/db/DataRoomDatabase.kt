@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.model.TVItem
+import java.util.concurrent.Executors
 
 @Database(entities = [MovieItem::class, TVItem::class], version = 2)
 abstract class DataRoomDatabase: RoomDatabase() {
@@ -24,6 +25,7 @@ abstract class DataRoomDatabase: RoomDatabase() {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(context.applicationContext,
                             DataRoomDatabase::class.java, "data_database")
+                            .setTransactionExecutor(Executors.newSingleThreadExecutor())
                             .build()
                     }
                 }

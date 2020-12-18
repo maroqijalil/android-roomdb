@@ -6,6 +6,7 @@ import my.maroqi.application.moviecatalogue.data.source.local.MovieData
 import my.maroqi.application.moviecatalogue.data.model.MovieItem
 import my.maroqi.application.moviecatalogue.data.source.local.TVData
 import my.maroqi.application.moviecatalogue.data.model.TVItem
+import my.maroqi.application.moviecatalogue.ui.data.DataLists
 import my.maroqi.application.moviecatalogue.utility.ListItemType
 import my.maroqi.application.moviecatalogue.utility.getOrAwaitValue
 import org.junit.Before
@@ -33,7 +34,7 @@ class DataDetailsViewModelTest {
 
     @Test
     fun testTVDetail() {
-        val tvDetail = getTVDetail(2)
+        val tvDetail = DataLists.getTVDetail(2)
         val type = ListItemType.TV_SHOW
 
         handle = SavedStateHandle()
@@ -45,7 +46,7 @@ class DataDetailsViewModelTest {
 
     @Test
     fun testMovieDetail() {
-        val movieList = getMovieDetail(4)
+        val movieList = DataLists.getMovieDetail(4)
         val type = ListItemType.MOVIE
 
         handle = SavedStateHandle()
@@ -68,61 +69,5 @@ class DataDetailsViewModelTest {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
-
-    private fun getMovieDetail(index: Int): MovieItem {
-        val titles = MovieData.titles
-        val years = MovieData.years
-        val releaseDate = MovieData.releaseDate
-        val countries = MovieData.country
-        val genres = MovieData.genres
-        val durations = MovieData.duration
-        val rating = MovieData.userScore
-        val descs = MovieData.shortDesc
-        val teams = MovieData.teams
-        val actors = MovieData.actors
-
-        val movieItem = MovieItem(
-            title = titles[index],
-            year = years[index],
-            poster = index,
-            releaseDate = releaseDate[index],
-            country = countries[index],
-            genre = genres[index],
-            duration = durations[index],
-            rating = rating[index],
-            desc = descs[index],
-            teams = teams[index],
-            actors = actors[index]
-        )
-
-        return movieItem
-    }
-
-    private fun getTVDetail(index: Int): TVItem {
-        val titles = TVData.titles
-        val years = TVData.years
-        val releaseDate = TVData.releaseDate
-        val genres = TVData.genres
-        val durations = TVData.duration
-        val rating = TVData.userScore
-        val descs = TVData.shortDesc
-        val teams = TVData.teams
-        val actors = TVData.actors
-
-        val tvItem = TVItem(
-            title = titles[index],
-            year = years[index],
-            poster = index,
-            releaseDate = releaseDate[index],
-            genre = genres[index],
-            duration = durations[index],
-            rating = rating[index],
-            desc = descs[index],
-            teams = teams[index],
-            actors = actors[index]
-        )
-
-        return tvItem
     }
 }

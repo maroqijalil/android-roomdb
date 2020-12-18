@@ -12,7 +12,7 @@ fun <T> LiveData<T>.getOrAwaitValue(
 ): T {
     var data: T? = null
     val latch = CountDownLatch(1)
-    val observer = object: Observer<T> {
+    val observer = object : Observer<T> {
         override fun onChanged(t: T) {
             data = t
             latch.countDown()
@@ -23,6 +23,24 @@ fun <T> LiveData<T>.getOrAwaitValue(
     this.observeForever(observer)
 
     if (!latch.await(time, timeUnit)) {
+        throw TimeoutException("LiveData value was never set")
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    return data as T
+}
+
+fun <T> LiveData<T>.getValueBlocking(): T {
+    var data: T? = null
+    val latch = CountDownLatch(1)
+    val observer = Observer<T> {
+        data = it
+        latch.countDown()
+    }
+
+    observeForever(observer)
+
+    if (!latch.await(2, TimeUnit.SECONDS)) {
         throw TimeoutException("LiveData value was never set")
     }
 
